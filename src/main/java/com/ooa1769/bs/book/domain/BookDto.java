@@ -1,4 +1,4 @@
-package com.ooa1769.bs.domain;
+package com.ooa1769.bs.book.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

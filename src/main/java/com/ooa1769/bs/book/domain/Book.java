@@ -1,13 +1,15 @@
-package com.ooa1769.bs.book.infra.respository.rest;
+package com.ooa1769.bs.book.domain;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
+import lombok.*;
 
 import java.util.Date;
 import java.util.List;
 
-@Data
-public class KakaoBook {
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Getter
+public class Book {
 
     private List<Document> documents;
     private Meta meta;
@@ -23,25 +25,19 @@ public class KakaoBook {
         private String publisher;
         private List<String> translators;
         private Integer price;
-        @JsonProperty("sale_price")
         private Integer salePrice;
-        @JsonProperty("sale_yn")
         private String saleYn;
         private String category;
         private String thumbnail;
         private String barcode;
-        @JsonProperty("ebook_barcode")
         private String ebookBarcode;
         private String status;
     }
 
     @Data
     private static class Meta {
-        @JsonProperty("is_end")
         private boolean end;
-        @JsonProperty("pageable_count")
         private Integer pageableCount;
-        @JsonProperty("total_count")
         private Integer totalCount;
     }
 }
