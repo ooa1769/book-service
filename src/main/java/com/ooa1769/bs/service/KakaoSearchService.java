@@ -1,7 +1,8 @@
 package com.ooa1769.bs.service;
 
+import com.ooa1769.bs.book.infra.respository.rest.KakaoApiProperties;
 import com.ooa1769.bs.domain.BookDto;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -11,10 +12,16 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
+@Slf4j
 public class KakaoSearchService {
 
-    @Autowired
     private RestTemplate restTemplate;
+    private KakaoApiProperties properties;
+
+    public KakaoSearchService(RestTemplate restTemplate, KakaoApiProperties properties) {
+        this.restTemplate = restTemplate;
+        this.properties = properties;
+    }
 
     public BookDto.Response search(BookDto.Request searchRequest) {
         HttpHeaders headers = new HttpHeaders();
@@ -28,8 +35,7 @@ public class KakaoSearchService {
                 .queryParam("size", searchRequest.getSize())
                 .build();
 
-        return restTemplate.exchange(
-                uriComponents.toUriString(),
+        return restTemplate.exchange(uriComponents.toUriString(),
                 HttpMethod.GET,
                 entity,
                 BookDto.Response.class).getBody();

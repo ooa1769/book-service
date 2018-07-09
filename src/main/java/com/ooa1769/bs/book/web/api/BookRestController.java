@@ -1,4 +1,4 @@
-package com.ooa1769.bs.web;
+package com.ooa1769.bs.book.web.api;
 
 import com.ooa1769.bs.domain.BookDto;
 import com.ooa1769.bs.service.KakaoSearchService;
@@ -20,7 +20,7 @@ public class BookRestController {
     private KakaoSearchService searchService;
 
     @GetMapping("/search")
-    public ResponseEntity<?> search(@RequestParam String query) throws UnsupportedEncodingException {
+    public ResponseEntity<?> search(@RequestParam String query) {
         BookDto.Request searchRequest = new BookDto.Request(query, "title", 1, 10);
         return new ResponseEntity<>(searchService.search(searchRequest), HttpStatus.OK);
     }
