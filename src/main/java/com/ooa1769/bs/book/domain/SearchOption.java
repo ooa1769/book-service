@@ -12,10 +12,10 @@ public class SearchOption {
     private static final int DEFAULT_MAX_SIZE = 50;
 
     @Getter
-    private int page = DEFAULT_PAGE;
+    private int page;
 
     @Getter
-    private int size = DEFAULT_SIZE;
+    private int size;
 
     @Getter @Setter
     private String query;
@@ -27,11 +27,13 @@ public class SearchOption {
     private Integer category;
 
     public SearchOption() {
+        System.out.println("SearchOption call");
         this.page = DEFAULT_PAGE;
         this.size = DEFAULT_SIZE;
     }
 
     public void setSize(int size) {
+        System.out.println("setSize call");
         this.size = size < DEFAULT_SIZE || size > DEFAULT_MAX_SIZE ? DEFAULT_SIZE : size;
     }
 

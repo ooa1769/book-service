@@ -1,10 +1,8 @@
 package com.ooa1769.bs.book.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import javax.persistence.Id;
 import java.time.ZonedDateTime;
 import java.util.List;
 

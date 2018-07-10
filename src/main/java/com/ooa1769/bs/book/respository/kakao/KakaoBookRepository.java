@@ -1,7 +1,8 @@
-package com.ooa1769.bs.book.respository.rest;
+package com.ooa1769.bs.book.respository.kakao;
 
 import com.ooa1769.bs.book.domain.Book;
 import com.ooa1769.bs.book.domain.SearchOption;
+import com.ooa1769.bs.book.respository.BookRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -18,7 +19,7 @@ import java.util.stream.Collectors;
 
 @Repository
 @Slf4j
-public class KakaoBookRepository {
+public class KakaoBookRepository implements BookRepository {
 
     private RestTemplate restTemplate;
     private KakaoApiProperties properties;
@@ -28,7 +29,8 @@ public class KakaoBookRepository {
         this.properties = properties;
     }
 
-    public Page<Book> search(SearchOption searchOption) {
+    @Override
+    public Page<Book> findByQuery(SearchOption searchOption) {
         Optional<KakaoBook> kakaoBookOptional = restApiCall(searchOption);
 
         if (kakaoBookOptional.isPresent()) {
@@ -38,8 +40,8 @@ public class KakaoBookRepository {
                     .collect(Collectors.toList());
 
             return new PageImpl<>(books,
-                    new PageRequest(searchOption.getPage(), searchOption.getSize()),
-                    kakaoBook.getMeta().getTotalCount());
+                    new PageRequest(searchOption.getPage() - 1, searchOption.getSize()),
+                    kakaoBook.getMeta().getPageableCount());
         }
 
         return new PageImpl<>(Collections.emptyList());

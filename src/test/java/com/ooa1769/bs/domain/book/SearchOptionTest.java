@@ -8,7 +8,7 @@ import static org.junit.Assert.assertEquals;
 public class SearchOptionTest {
 
     @Test
-    public void testName() throws Exception {
+    public void 쿼리스트링_테스트() throws Exception {
         SearchOption searchOption = new SearchOption();
         searchOption.setTarget("title");
         searchOption.setQuery("스프링");

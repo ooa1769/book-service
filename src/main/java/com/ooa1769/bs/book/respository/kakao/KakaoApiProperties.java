@@ -1,4 +1,4 @@
-package com.ooa1769.bs.book.respository.rest;
+package com.ooa1769.bs.book.respository.kakao;
 
 import lombok.Getter;
 import lombok.Setter;

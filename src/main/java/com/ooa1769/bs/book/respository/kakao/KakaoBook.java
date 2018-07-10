@@ -1,12 +1,10 @@
-package com.ooa1769.bs.book.respository.rest;
+package com.ooa1769.bs.book.respository.kakao;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Getter
