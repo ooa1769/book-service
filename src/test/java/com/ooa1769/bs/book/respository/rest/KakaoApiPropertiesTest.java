@@ -1,4 +1,4 @@
-package com.ooa1769.bs.book.infra.respository.rest;
+package com.ooa1769.bs.book.respository.rest;
 
 import org.junit.Test;
 

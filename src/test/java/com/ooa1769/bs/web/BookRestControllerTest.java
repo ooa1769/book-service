@@ -24,7 +24,9 @@ public class BookRestControllerTest {
     @Test
     public void search() throws Exception {
         mvc.perform(get("/api/books/search")
-                .param("query", "스프링"))
+                .param("target", "title")
+                .param("category", "11")
+                .param("query", "스프링부트"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }
