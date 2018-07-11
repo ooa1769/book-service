@@ -39,7 +39,7 @@ public class MemberRepositoryTest {
         searchHistories.add(sameKeywordOrderHistory);
         searchHistories.add(sameKeyWordNewerHistory);
         searchHistories.add(otherKeywordHistory);
-        member = new Member(3L, "ggulmool@naver.com", "손예진", "1234", true);
+        member = new Member("ggulmool@naver.com", "손예진", "1234", true);
         member.setSearchHistories(searchHistories);
     }
 
@@ -47,15 +47,14 @@ public class MemberRepositoryTest {
     @Test
     public void 회원_등록() {
         // given
-        System.out.println(member);
         entityManager.persist(member);
         entityManager.flush();
-//
-//        // when
-//        Member foundMember = memberRepository.findByEmail("ggulmool@naver.com").get();
-//
-//        // then
-//        assertThat(foundMember.getName())
-//                .isEqualTo(member.getName());
+
+        // when
+        Member foundMember = memberRepository.findByEmail("ggulmool@naver.com").get();
+
+        // then
+        assertThat(foundMember.getName())
+                .isEqualTo(member.getName());
     }
 }

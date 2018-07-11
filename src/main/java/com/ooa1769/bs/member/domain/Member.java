@@ -45,7 +45,10 @@ public class Member extends AbstractEntity {
     protected Member() {}
 
     public Member(String email, String name, String password, boolean enabled) {
-        this(0L, email, name, password, enabled);
+        this.email = email;
+        this.name = name;
+        this.password = password;
+        this.enabled = enabled;
     }
 
     public Member(Long id, String email, String name, String password, boolean enabled) {
