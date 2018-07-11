@@ -2,6 +2,7 @@ package com.ooa1769.bs.member.domain;
 
 import com.ooa1769.bs.support.domain.AbstractEntity;
 import com.ooa1769.bs.support.domain.BooleanToYNConverter;
+import lombok.Getter;
 
 import javax.persistence.*;
 
@@ -16,12 +17,15 @@ public class Member extends AbstractEntity {
     private Long id;
 
     @Column(nullable = false)
+    @Getter
     private String email;
 
     private String name;
 
+    @Getter
     private String password;
 
+    @Getter
     private boolean enabled;
 
 }

@@ -1,6 +1,5 @@
 package com.ooa1769.bs.book.service;
 
-import com.ooa1769.bs.BSApp;
 import com.ooa1769.bs.book.domain.Book;
 import com.ooa1769.bs.book.domain.SearchOption;
 import org.junit.Test;
