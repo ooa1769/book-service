@@ -1,4 +1,4 @@
-package com.ooa1769.bs.web;
+package com.ooa1769.bs.book.web;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

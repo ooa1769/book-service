@@ -1,6 +1,5 @@
-package com.ooa1769.bs.domain.book;
+package com.ooa1769.bs.book.domain;
 
-import com.ooa1769.bs.book.domain.SearchOption;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
