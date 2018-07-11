@@ -39,7 +39,7 @@ public class AppConfig {
     }
 
     private List<HttpMessageConverter<?>> getMessageConverters() {
-        List<HttpMessageConverter<?>> converters = new ArrayList<HttpMessageConverter<?>>();
+        List<HttpMessageConverter<?>> converters = new ArrayList<>();
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
         converter.setObjectMapper(objectMapper());
         converters.add(converter);

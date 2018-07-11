@@ -22,6 +22,10 @@ public class SearchOptionTest {
         SearchOption searchOption = new SearchOption();
         assertPageSize(1, 10, searchOption);
 
+        searchOption.setPage(5);
+        searchOption.setSize(10);
+        assertPageSize(5, 10, searchOption);
+
         searchOption.setPage(51);
         searchOption.setSize(51);
         assertPageSize(1, 10, searchOption);

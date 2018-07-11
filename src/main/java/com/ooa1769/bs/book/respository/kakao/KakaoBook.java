@@ -1,5 +1,6 @@
 package com.ooa1769.bs.book.respository.kakao;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,7 @@ public class KakaoBook {
 
     @Getter
     @NoArgsConstructor
+    @JsonIgnoreProperties(ignoreUnknown = true)
     static class Document {
         private String title;
         private String contents;
@@ -40,6 +42,7 @@ public class KakaoBook {
 
     @Getter
     @NoArgsConstructor
+    @JsonIgnoreProperties(ignoreUnknown = true)
     static class Meta {
         @JsonProperty("is_end")
         private boolean end;
