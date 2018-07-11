@@ -9,5 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface BookService {
 
+    @Transactional(readOnly = true)
     Page<Book> search(SearchOption searchOption);
 }

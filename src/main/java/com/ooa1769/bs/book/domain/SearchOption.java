@@ -7,8 +7,10 @@ import org.springframework.util.ObjectUtils;
 public class SearchOption {
 
     private static final int DEFAULT_PAGE = 1;
+    private static final int DEFAULT_MIN_PAGE = 1;
     private static final int DEFAULT_MAX_PAGE = 50;
     private static final int DEFAULT_SIZE = 10;
+    private static final int DEFAULT_MIN_SIZE = 1;
     private static final int DEFAULT_MAX_SIZE = 50;
 
     @Getter
@@ -27,18 +29,16 @@ public class SearchOption {
     private Integer category;
 
     public SearchOption() {
-        System.out.println("SearchOption call");
         this.page = DEFAULT_PAGE;
         this.size = DEFAULT_SIZE;
     }
 
-    public void setSize(int size) {
-        System.out.println("setSize call");
-        this.size = size < DEFAULT_SIZE || size > DEFAULT_MAX_SIZE ? DEFAULT_SIZE : size;
+    public void setPage(int page) {
+        this.page = page < DEFAULT_MIN_PAGE || page > DEFAULT_MAX_PAGE ? DEFAULT_PAGE : page;
     }
 
-    public void setPage(int page) {
-        this.page = page < DEFAULT_PAGE || page > DEFAULT_MAX_PAGE ? DEFAULT_PAGE : page;
+    public void setSize(int size) {
+        this.size = size < DEFAULT_MIN_SIZE || size > DEFAULT_MAX_SIZE ? DEFAULT_SIZE : size;
     }
 
     public String queryParam() {
@@ -50,9 +50,13 @@ public class SearchOption {
         if (!ObjectUtils.isEmpty(query)) {
             builder.append(String.format(queryStringFormat, "query", query));
         }
+
         if (!ObjectUtils.isEmpty(target)) {
             builder.append(String.format(queryStringFormat, "target", target));
+        } else {
+            builder.append(String.format(queryStringFormat, "target", "all"));
         }
+
         if (!ObjectUtils.isEmpty(category)) {
             builder.append(String.format(queryStringFormat, "category", category));
         }

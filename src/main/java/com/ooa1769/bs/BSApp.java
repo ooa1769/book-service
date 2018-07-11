@@ -2,9 +2,8 @@ package com.ooa1769.bs;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
-@SpringBootApplication(scanBasePackageClasses = {BSApp.class, Jsr310JpaConverters.class})
+@SpringBootApplication
 public class BSApp {
 
     public static void main(String[] args) {
