@@ -1,16 +1,15 @@
 package com.ooa1769.bs.web;
 
-import com.ooa1769.bs.dto.MemberDto;
 import com.ooa1769.bs.service.member.MemberService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import com.ooa1769.bs.web.dto.MemberDto;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-@RestController
-@RequestMapping("/api/members")
+import javax.validation.Valid;
+
+@Controller
+@RequestMapping("/members")
 public class MemberController {
 
     private MemberService memberService;
@@ -19,9 +18,14 @@ public class MemberController {
         this.memberService = memberService;
     }
 
-    @PostMapping
-    public ResponseEntity<?> create(@RequestBody MemberDto memberDto) {
-        memberService.register(memberDto.toMember());
-        return new ResponseEntity<>(HttpStatus.OK);
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String registerPage() {
+        return "registrationPage";
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String register(MemberDto memberDto) {
+        memberService.register(memberDto);
+        return "redirect:/";
     }
 }

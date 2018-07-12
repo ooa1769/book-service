@@ -1,4 +1,4 @@
-package com.ooa1769.bs.dto;
+package com.ooa1769.bs.web.dto;
 
 import com.ooa1769.bs.domain.member.Member;
 import lombok.Data;

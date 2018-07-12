@@ -1,26 +1,22 @@
 package com.ooa1769.bs.support.security;
 
 public class UnAuthorizedException extends RuntimeException {
+
     private static final long serialVersionUID = 1L;
 
     public UnAuthorizedException() {
         super();
     }
 
-    public UnAuthorizedException(String message, Throwable cause, boolean enableSuppression,
-                                 boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
-    }
-
-    public UnAuthorizedException(String message, Throwable cause) {
+    public UnAuthorizedException(final String message, final Throwable cause) {
         super(message, cause);
     }
 
-    public UnAuthorizedException(String message) {
+    public UnAuthorizedException(final String message) {
         super(message);
     }
 
-    public UnAuthorizedException(Throwable cause) {
+    public UnAuthorizedException(final Throwable cause) {
         super(cause);
     }
 }

@@ -28,7 +28,7 @@ public class Member extends AbstractEntity {
     private String name;
 
     @Getter
-    @Column(length = 20, nullable = false)
+    @Column(length = 60, nullable = false)
     private String password;
 
     @Getter
