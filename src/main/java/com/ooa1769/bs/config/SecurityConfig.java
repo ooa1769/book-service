@@ -26,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/"
-                        ,"/h2-console/**")
+                        ,"/h2-console/**", "/api/members/**")
                 .permitAll()
                 .anyRequest().authenticated()
 

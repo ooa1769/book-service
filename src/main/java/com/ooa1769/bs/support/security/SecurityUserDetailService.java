@@ -1,8 +1,7 @@
 package com.ooa1769.bs.support.security;
 
-import com.ooa1769.bs.member.domain.Member;
-import com.ooa1769.bs.member.repository.MemberRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.ooa1769.bs.domain.member.Member;
+import com.ooa1769.bs.respository.member.MemberRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -30,7 +29,7 @@ public class SecurityUserDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Optional<Member> memberOpt = memberRepository.findByEmail(email);
         Member member = memberOpt.orElseThrow(
-                () -> new UsernameNotFoundException("Not found Member with email" + email));
+                () -> new UsernameNotFoundException("회원이 존재하지 않습니다."));
 
         return new User(member.getEmail(), member.getPassword(), member.isEnabled(), true,true,true, getAuthorities(ROLE_USER));
     }

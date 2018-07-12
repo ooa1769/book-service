@@ -55,8 +55,8 @@ public class AppConfig {
     /*@Bean
     public KakaoApiProperties kakaoProperties() {
         KakaoApiProperties kakaoApiProperties = new KakaoApiProperties();
-        kakaoApiProperties.setKey(env.getProperty("kakao.api.key"));
-        kakaoApiProperties.setUrl(env.getProperty("kakao.api.url"));
+        kakaoApiProperties.setKey(env.getProperty("kakao.web.key"));
+        kakaoApiProperties.setUrl(env.getProperty("kakao.web.url"));
         return kakaoApiProperties;
     }*/
 }
