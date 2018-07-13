@@ -1,7 +1,7 @@
 package com.ooa1769.bs.support.security;
 
-import com.ooa1769.bs.domain.member.Member;
-import com.ooa1769.bs.respository.member.MemberRepository;
+import com.ooa1769.bs.member.Member;
+import com.ooa1769.bs.member.support.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.security.core.context.SecurityContextHolder;

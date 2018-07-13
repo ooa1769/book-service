@@ -1,19 +1,19 @@
 package com.ooa1769.bs.web;
 
-import com.ooa1769.bs.service.member.MemberService;
+import com.ooa1769.bs.member.support.MemberService;
 import com.ooa1769.bs.web.dto.MemberDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/members")
 public class MemberController {
 
-    private MemberService memberService;
+    private final MemberService memberService;
 
+    @Autowired
     public MemberController(MemberService memberService) {
         this.memberService = memberService;
     }
