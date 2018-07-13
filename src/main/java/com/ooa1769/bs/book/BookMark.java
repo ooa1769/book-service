@@ -45,25 +45,6 @@ public class BookMark extends AbstractEntity implements UrlGeneratable {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        BookMark bookMark = (BookMark) o;
-
-        if (isbn != null ? !isbn.equals(bookMark.isbn) : bookMark.isbn != null) return false;
-        return member != null ? member.equals(bookMark.member) : bookMark.member == null;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = isbn != null ? isbn.hashCode() : 0;
-        result = 31 * result + (member != null ? member.hashCode() : 0);
-        return result;
-    }
-
-    @Override
     public String toString() {
         return "BookMark [id=" + id + ", isbn=" + isbn + ", title=" + title + "]";
     }

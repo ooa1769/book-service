@@ -1,6 +1,5 @@
 package com.ooa1769.bs.member;
 
-import com.ooa1769.bs.book.SearchHistory;
 import com.ooa1769.bs.support.domain.UrlGeneratable;
 import com.ooa1769.bs.support.jpa.AbstractEntity;
 import com.ooa1769.bs.support.jpa.BooleanToYNConverter;
@@ -87,28 +86,6 @@ public class Member extends AbstractEntity implements UrlGeneratable {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Member member = (Member) o;
-
-        return id != null ? id.equals(member.id) : member.id == null;
-
-    }
-
-    @Override
-    public int hashCode() {
-        return id != null ? id.hashCode() : 0;
-    }
-
-    @Override
-    public String toString() {
-        return "Member [id=" + id + ", email=" + email + ", name=" + name + ", password=" + password + ", enabled=" + enabled +
-                ", searchHistories=" + searchHistories + "]";
-    }
-
-    @Override
     public String generateUrl() {
         return null;
     }
@@ -116,5 +93,11 @@ public class Member extends AbstractEntity implements UrlGeneratable {
     @Override
     public String generateRestUrl() {
         return String.format("/api/members/%d", id);
+    }
+
+    @Override
+    public String toString() {
+        return "Member [id=" + id + ", email=" + email + ", name=" + name + ", password=" + password + ", enabled=" + enabled +
+                ", searchHistories=" + searchHistories + "]";
     }
 }

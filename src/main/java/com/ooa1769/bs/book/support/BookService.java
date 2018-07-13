@@ -7,6 +7,7 @@ import com.ooa1769.bs.member.Member;
 import com.ooa1769.bs.web.dto.BookMarkDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,5 +40,10 @@ public class BookService {
     public BookMark getBookMark(Long id) {
         return bookMarkRepository.findById(id)
                 .orElseThrow(() -> new IllegalStateException("해당 북마크가 존재하지 않습니다."));
+    }
+
+    @Transactional(readOnly = true)
+    public Page<BookMark> getBookMarksByMember(Member member, Pageable pageable) {
+        return bookMarkRepository.findByMember(member, pageable);
     }
 }

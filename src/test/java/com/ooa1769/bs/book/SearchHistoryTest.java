@@ -1,6 +1,7 @@
 package com.ooa1769.bs.book;
 
 import com.ooa1769.bs.member.Member;
+import com.ooa1769.bs.member.SearchHistory;
 import org.junit.Before;
 import org.junit.Test;
 
