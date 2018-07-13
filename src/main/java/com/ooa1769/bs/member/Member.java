@@ -1,6 +1,7 @@
 package com.ooa1769.bs.member;
 
 import com.ooa1769.bs.book.SearchHistory;
+import com.ooa1769.bs.support.domain.UrlGeneratable;
 import com.ooa1769.bs.support.jpa.AbstractEntity;
 import com.ooa1769.bs.support.jpa.BooleanToYNConverter;
 import lombok.Getter;
@@ -12,7 +13,7 @@ import java.util.Set;
 @Entity
 @Table(name = "member", indexes = {@Index(name = "idx_member_email",  columnList="email", unique = true)})
 @Convert(converter = BooleanToYNConverter.class, attributeName = "enabled")
-public class Member extends AbstractEntity {
+public class Member extends AbstractEntity implements UrlGeneratable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -105,5 +106,15 @@ public class Member extends AbstractEntity {
     public String toString() {
         return "Member [id=" + id + ", email=" + email + ", name=" + name + ", password=" + password + ", enabled=" + enabled +
                 ", searchHistories=" + searchHistories + "]";
+    }
+
+    @Override
+    public String generateUrl() {
+        return null;
+    }
+
+    @Override
+    public String generateRestUrl() {
+        return String.format("/api/members/%d", id);
     }
 }

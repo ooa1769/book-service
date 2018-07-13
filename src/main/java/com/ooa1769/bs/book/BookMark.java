@@ -1,16 +1,19 @@
 package com.ooa1769.bs.book;
 
 import com.ooa1769.bs.member.Member;
+import com.ooa1769.bs.support.domain.UrlGeneratable;
 import com.ooa1769.bs.support.jpa.AbstractEntity;
+import lombok.Getter;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "bookmark")
-public class BookMark extends AbstractEntity {
+public class BookMark extends AbstractEntity implements UrlGeneratable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter
     private Long id;
 
     private String isbn;
@@ -47,5 +50,15 @@ public class BookMark extends AbstractEntity {
         int result = isbn != null ? isbn.hashCode() : 0;
         result = 31 * result + (member != null ? member.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String generateUrl() {
+        return null;
+    }
+
+    @Override
+    public String generateRestUrl() {
+        return String.format("/api/books/bookmarks/%d", id);
     }
 }

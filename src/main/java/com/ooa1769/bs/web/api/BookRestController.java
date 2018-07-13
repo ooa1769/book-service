@@ -1,10 +1,11 @@
-package com.ooa1769.bs.web;
+package com.ooa1769.bs.web.api;
 
 import com.ooa1769.bs.book.SearchOption;
 import com.ooa1769.bs.book.support.BookService;
 import com.ooa1769.bs.member.Member;
 import com.ooa1769.bs.member.support.MemberService;
 import com.ooa1769.bs.support.security.LoginMember;
+import com.ooa1769.bs.support.util.Mappings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/books")
+@RequestMapping(Mappings.BOOKS)
 public class BookRestController {
 
     private final BookService bookService;
