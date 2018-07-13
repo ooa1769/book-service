@@ -1,2 +1,2 @@
-insert into member(member_id, email, name, password, enabled) values(1L, 'ooa1769@naver.com', '김남열', '1234', 'Y');
-insert into member(member_id, email, name, password, enabled) values(2L, 'thekarin@lycos.co.kr', '김남일', '1234', 'Y');
+insert into member(member_id, email, name, password, enabled, create_date, modified_date) values(1L, 'ooa1769@naver.com', '김남열', '$2a$10$Jxa0uY7zveD/YcBBjXNoGuMcnI98/uwuA8biuEyjVPvi2B4jGi04C', 'Y','2018-07-13 23:08:42.859','2018-07-13 23:08:42.859');
+insert into member(member_id, email, name, password, enabled, create_date, modified_date) values(2L, 'thekarin@lycos.co.kr', '김남일', '$2a$10$Jxa0uY7zveD/YcBBjXNoGuMcnI98/uwuA8biuEyjVPvi2B4jGi04C', 'Y','2018-07-13 23:08:42.859','2018-07-13 23:08:42.859');

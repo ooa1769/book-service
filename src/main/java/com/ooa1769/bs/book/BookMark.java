@@ -3,6 +3,7 @@ package com.ooa1769.bs.book;
 import com.ooa1769.bs.member.Member;
 import com.ooa1769.bs.support.domain.UrlGeneratable;
 import com.ooa1769.bs.support.jpa.AbstractEntity;
+import com.ooa1769.bs.support.util.Mappings;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -34,6 +35,16 @@ public class BookMark extends AbstractEntity implements UrlGeneratable {
     }
 
     @Override
+    public String generateUrl() {
+        return null;
+    }
+
+    @Override
+    public String generateRestUrl() {
+        return String.format(Mappings.BOOKMARKS_CREATE_FORMAT, id);
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -53,12 +64,7 @@ public class BookMark extends AbstractEntity implements UrlGeneratable {
     }
 
     @Override
-    public String generateUrl() {
-        return null;
-    }
-
-    @Override
-    public String generateRestUrl() {
-        return String.format("/api/books/bookmarks/%d", id);
+    public String toString() {
+        return "BookMark [id=" + id + ", isbn=" + isbn + ", title=" + title + "]";
     }
 }

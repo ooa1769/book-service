@@ -4,11 +4,13 @@ import com.ooa1769.bs.book.SearchHistory;
 import com.ooa1769.bs.member.Member;
 import com.ooa1769.bs.web.dto.MemberDto;
 import com.ooa1769.bs.web.error.MemberAlreadyExistException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
@@ -25,7 +27,9 @@ public class MemberServiceImpl implements MemberService {
         if (emailExist(memberDto.getEmail())) {
             throw new MemberAlreadyExistException("이미 등록된 id입니다. " + memberDto.getEmail());
         }
-        memberDto.setPassword(passwordEncoder.encode(memberDto.getPassword()));
+        String encodePassword = passwordEncoder.encode(memberDto.getPassword());
+        log.debug("encodePassword = {}", encodePassword);
+        memberDto.setPassword(encodePassword);
         return memberRepository.save(memberDto.toMember());
     }
 

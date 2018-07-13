@@ -8,6 +8,9 @@ public final class Mappings {
     public static final String BOOKMARKS = "/api/bookmarks";
     public static final String MEMBERS = "/api/members";
 
+    public static final String BOOKMARKS_CREATE_FORMAT = "/api/bookmarks/%d";
+
+
     private Mappings() {
         throw new AssertionError();
     }

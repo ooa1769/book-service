@@ -15,4 +15,9 @@ public class BookMarkDto {
     public BookMark createBookMark(Member member) {
         return new BookMark(isbn, title, member);
     }
+
+    @Override
+    public String toString() {
+        return "BookMarkDto [isbn=" + isbn + ", title=" + title + "]";
+    }
 }

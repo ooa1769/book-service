@@ -17,4 +17,9 @@ public class MemberDto {
     public Member toMember() {
         return new Member(email, name, password, true);
     }
+
+    @Override
+    public String toString() {
+        return "MemberDto [email=" + email + ", name=" + name + ", password=" + password + "]";
+    }
 }

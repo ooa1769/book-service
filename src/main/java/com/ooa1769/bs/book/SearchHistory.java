@@ -43,6 +43,5 @@ public class SearchHistory {
     @Override
     public String toString() {
         return "SearchHistory [searchKeyword=" + searchKeyword + ", searchDate=" + searchDate + "]";
-
     }
 }
