@@ -7,6 +7,7 @@ import com.ooa1769.bs.support.security.LoginMember;
 import com.ooa1769.bs.support.util.Mappings;
 import com.ooa1769.bs.web.dto.BookMarkDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,8 +26,8 @@ public class BookMarkRestController {
         this.bookService = bookService;
     }
 
-    @PostMapping("")
-    public ResponseEntity<?> addBookMark(@LoginMember Member member, BookMarkDto bookMarkDto) {
+    @PostMapping
+    public ResponseEntity<?> addBookMark(@LoginMember Member member, @RequestBody BookMarkDto bookMarkDto) {
         BookMark bookMark = bookService.addBookMark(bookMarkDto, member);
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(URI.create(bookMark.generateRestUrl()));
@@ -38,5 +39,11 @@ public class BookMarkRestController {
         BookMark bookMark = bookService.getBookMark(id);
         bookService.deleteBookMark(bookMark);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping
+    public ResponseEntity<?> getBookMarks(@LoginMember Member member, @RequestParam(defaultValue = "1") int page) {
+        PageRequest pageRequest = new PageRequest(page - 1, 10);
+        return ResponseEntity.ok(bookService.getBookMarksByMember(member, pageRequest));
     }
 }

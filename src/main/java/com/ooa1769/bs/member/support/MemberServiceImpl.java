@@ -3,7 +3,7 @@ package com.ooa1769.bs.member.support;
 import com.ooa1769.bs.member.SearchHistory;
 import com.ooa1769.bs.member.Member;
 import com.ooa1769.bs.web.dto.MemberDto;
-import com.ooa1769.bs.web.error.MemberAlreadyExistException;
+import com.ooa1769.bs.member.MemberAlreadyExistException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

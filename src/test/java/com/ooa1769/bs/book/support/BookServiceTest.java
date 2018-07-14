@@ -26,7 +26,7 @@ public class BookServiceTest {
         searchOption.setQuery("토비의 스프링");
         searchOption.setTarget("title");
 
-        Page<Book> books = bookService.getBooks(searchOption);
+        Page<Book> books = bookService.getBooksByKeyword(searchOption);
         assertThat(books).isNotEmpty();
         assertThat(books.getNumber()).isEqualTo(0);
         assertThat(books.getSize()).isEqualTo(10);

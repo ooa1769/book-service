@@ -34,7 +34,7 @@ public class SearchService {
         this.properties = properties;
     }
 
-    public Page<Book> findByQuery(SearchOption searchOption) {
+    public Page<Book> search(SearchOption searchOption) {
         Optional<SearchResult> resultOpt = execute(searchOption);
 
         if (resultOpt.isPresent()) {

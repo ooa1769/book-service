@@ -29,7 +29,7 @@ public class BookRestController {
     @GetMapping("/search")
     public ResponseEntity<?> search(@LoginMember Member member, SearchOption searchOption) {
         memberService.addSearchHistory(member, searchOption.getQuery());
-        return new ResponseEntity<>(bookService.getBooks(searchOption), HttpStatus.OK);
+        return new ResponseEntity<>(bookService.getBooksByKeyword(searchOption), HttpStatus.OK);
     }
 
     @GetMapping("/keywords")

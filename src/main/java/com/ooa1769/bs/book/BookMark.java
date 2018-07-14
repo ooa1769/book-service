@@ -14,11 +14,14 @@ public class BookMark extends AbstractEntity implements UrlGeneratable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "bookmark_id")
     @Getter
     private Long id;
 
+    @Getter
     private String isbn;
 
+    @Getter
     private String title;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -1,5 +1,6 @@
 package com.ooa1769.bs.book;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.util.ObjectUtils;
@@ -31,6 +32,15 @@ public class SearchOption {
     public SearchOption() {
         this.page = DEFAULT_PAGE;
         this.size = DEFAULT_SIZE;
+    }
+
+    @Builder
+    public SearchOption(int page, int size, String query, String target, Integer category) {
+        this.page = page;
+        this.size = size;
+        this.query = query;
+        this.target = target;
+        this.category = category;
     }
 
     public void setPage(int page) {

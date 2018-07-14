@@ -14,6 +14,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class BookMarkRepositoryTest {
@@ -32,7 +34,7 @@ public class BookMarkRepositoryTest {
     }
 
     @Test
-    public void 북마크_추가() {
+    public void 북마크_추가_목록조회() {
         entityManager.persist(member);
         entityManager.flush();
 
@@ -42,9 +44,14 @@ public class BookMarkRepositoryTest {
         bookMarkRepository.save(bookMark1);
         bookMarkRepository.save(bookMark2);
 
-        Pageable pageable = new PageRequest(0, 10, Sort.Direction.DESC, "title");
+        Pageable pageable = new PageRequest(0, 10, Sort.Direction.ASC, "title");
 
         Page<BookMark> bookMarks = bookMarkRepository.findByMember(member, pageable);
-        System.out.println(bookMarks);
+        assertThat(bookMarks.getContent()).size().isEqualTo(2);
+
+        assertThat(bookMarks.getNumber()).isEqualTo(0); // 페이지
+        assertThat(bookMarks.getSize()).isEqualTo(10); // 한페이지에 보여줄 건수
+        assertThat(bookMarks.getTotalPages()).isEqualTo(1); // 총 페이지 수
+        assertThat(bookMarks.getTotalElements()).isEqualTo(2); // 총 건수
     }
 }
