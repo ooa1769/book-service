@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/","/css/**","/js/**","/favicon.ico"
-                        ,"/h2-console/**", "/members/register"
+                        ,"/h2-console/**", "/member/form"
                         ,"/book", "/book/**"
                 )
                 .permitAll()

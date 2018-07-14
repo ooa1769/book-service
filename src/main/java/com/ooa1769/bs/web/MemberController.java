@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/members")
+@RequestMapping("/member")
 public class MemberController {
 
     private final MemberService memberService;
@@ -18,14 +18,14 @@ public class MemberController {
         this.memberService = memberService;
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    @RequestMapping(value = "/form", method = RequestMethod.GET)
     public String registerPage() {
-        return "registrationPage";
+        return "member/registerForm";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String register(MemberDto memberDto) {
         memberService.register(memberDto);
-        return "redirect:/";
+        return "redirect:/login";
     }
 }

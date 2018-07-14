@@ -28,6 +28,7 @@ public class BookController {
         Page<Book> pageBook = bookService.getBooksByKeyword(searchOption);
         model.addAttribute("books", pageBook.getContent());
         model.addAttribute("targets", SearchTarget.values());
+        model.addAttribute("pagingInfo", new PagingInfo(pageBook));
         return "book/index";
     }
 }

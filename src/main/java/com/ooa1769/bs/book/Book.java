@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class Book {
 
-    public final static String ISBN_NON_VALID = "ISBN_NON_VALID";
+    public final static String INVALID_ISBN = "INVALID_ISBN";
 
     private String title;
     private String contents;
@@ -61,12 +61,12 @@ public class Book {
 
             // isbn값이 "  " 으로 넘어오는 케이스
             if (isbns.length == 0) {
-                return ISBN_NON_VALID;
+                return INVALID_ISBN;
             }
             return isbns.length == 2 ? isbns[1] : isbns[0];
         }
 
-        return ISBN_NON_VALID;
+        return INVALID_ISBN;
     }
 
     public String getAuthors() {
