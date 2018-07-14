@@ -13,11 +13,13 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -35,6 +37,10 @@ public class SearchService {
     }
 
     public Page<Book> search(SearchOption searchOption) {
+        if (StringUtils.isEmpty(searchOption.getQuery())) {
+            return new PageImpl<>(Collections.emptyList());
+        }
+
         Optional<SearchResult> resultOpt = execute(searchOption);
 
         if (resultOpt.isPresent()) {

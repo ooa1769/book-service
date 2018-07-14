@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(Mappings.BOOKS)
-public class BookRestController {
+public class ApiBookController {
 
     private final BookService bookService;
     private final MemberService memberService;
 
     @Autowired
-    public BookRestController(BookService bookService, MemberService memberService) {
+    public ApiBookController(BookService bookService, MemberService memberService) {
         this.bookService = bookService;
         this.memberService = memberService;
     }

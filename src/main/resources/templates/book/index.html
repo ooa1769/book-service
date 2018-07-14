@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout">
+<head>
+    <title>Users : View all</title>
+</head>
+<body>
+<h1 layout:fragment="header">책 검색 서비스</h1>
+<div layout:fragment="content" class="container">
+    <div class="panel-body pull-right">
+        <a href="form.html" th:href="@{/user/(form)}">북마크 추가</a>
+    </div>
+
+    <div class="panel-body">
+        <div>
+            <select id="target" name="target" >
+                <option th:each="target : ${targets}" th:value="${target.target}" th:text="${target.displayName}"
+                        th:selected="${searchOption.target} == ${target.target}"></option>
+            </select>
+            <input type='text' id='query' name="query" th:value="${searchOption.query}"/>
+            <button id='searchBtn'>검색</button>
+        </div>
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <td>제목</td>
+                <td>저자</td>
+                <td>출판사</td>
+                <td>출판일</td>
+                <td>가격</td>
+            </tr>
+            </thead>
+            <tbody>
+                <tr th:if="${books.empty}">
+                    <td colspan="5">검색된 책이 없습니다.</td>
+                </tr>
+                <tr th:each="book : ${books}">
+                    <td><a href="view.html" th:href="@{'/book/' + ${book.isbn}}" th:text="${book.title}"></a></td>
+                    <td th:text="${book.authors}"></td>
+                    <td th:text="${book.publisher}"></td>
+                    <td th:text="${#calendars.format(book.datetime)}"></td>
+                    <td th:text="${book.price}"></td>
+           <!-- <td><a href="view.html" th:href="@{'/user/' + ${book.isbn}}" th:text="${book.title}"> Username </a></td>
+            <td th:text="${#calendars.format(book.datetime)}">July 11, 2012 2:17:16 PM CDT</td>-->
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <form id='searchForm' th:action="@{/book}" method="get">
+        <!--<input type='hidden' name='page' th:value=${result.currentPageNum}>
+        <input type='hidden' name='size' th:value=${result.currentPage.pageSize}>-->
+        <input type='hidden' name='target' th:value="${searchOption.target}"/>
+        <input type='hidden' name='query' th:value="${searchOption.query}"/>
+    </form>
+</div>
+</body>
+
+<th:block layout:fragment="script">
+
+    <script th:inline="javascript">
+        $(document).ready(function() {
+            $('#searchBtn').click(function () {
+                var searchForm = $("#searchForm");
+                var target = $("#target").find(":selected").val();
+                var query = $("#query").val();
+
+                console.log(target, "" , query);
+
+                searchForm.find("[name='target']").val(target);
+                searchForm.find("[name='query']").val(query);
+                //searchForm.find("[name='page']").val("1");
+                searchForm.submit();
+            });
+        });
+    </script>
+</th:block>
+
+</html>

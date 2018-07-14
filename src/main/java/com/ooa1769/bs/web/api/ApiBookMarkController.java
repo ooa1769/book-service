@@ -17,12 +17,12 @@ import java.net.URI;
 
 @RestController
 @RequestMapping(Mappings.BOOKMARKS)
-public class BookMarkRestController {
+public class ApiBookMarkController {
 
     private final BookService bookService;
 
     @Autowired
-    public BookMarkRestController(BookService bookService) {
+    public ApiBookMarkController(BookService bookService) {
         this.bookService = bookService;
     }
 

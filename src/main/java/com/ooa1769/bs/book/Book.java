@@ -1,13 +1,21 @@
 package com.ooa1769.bs.book;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.StringUtils;
+
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Objects;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @Getter
+@Slf4j
 public class Book {
+
+    public final static String ISBN_NON_VALID = "ISBN_NON_VALID";
 
     private String title;
     private String contents;
@@ -47,11 +55,23 @@ public class Book {
     }
 
     public String getIsbn() {
-        if (Objects.nonNull(isbn)) {
+        log.debug("isbn : {} ", isbn);
+        if (!StringUtils.isEmpty(isbn)) {
             String[] isbns = isbn.split(" ");
+
+            // isbn값이 "  " 으로 넘어오는 케이스
+            if (isbns.length == 0) {
+                return ISBN_NON_VALID;
+            }
             return isbns.length == 2 ? isbns[1] : isbns[0];
         }
 
-        return null;
+        return ISBN_NON_VALID;
     }
+
+    public String getAuthors() {
+        return authors.stream()
+                .collect(Collectors.joining(","));
+    }
+
 }

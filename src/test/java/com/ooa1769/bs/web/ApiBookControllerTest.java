@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestPropertySource(value = {"classpath:kakao.properties"})
 @SpringBootTest
 @AutoConfigureMockMvc
-public class BookRestControllerTest {
+public class ApiBookControllerTest {
 
     @Autowired
     private MockMvc mvc;
