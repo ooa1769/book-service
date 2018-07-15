@@ -37,7 +37,7 @@
                     <td th:text="${book.publisher}"></td>
                     <td th:text="${#calendars.format(book.datetime, 'YYYY-MM-dd')}"></td>
                     <td th:text="${#numbers.formatInteger(book.price, 3, 'COMMA')} + '원'"></td>
-                    <td><a class="btn btn-small" href="#" sec:authorize="isAuthenticated()"><i class="icon-bookmark"></i>북마크</a></td>
+                    <td><a class="btn btn-small bookMarkLink" th:attr="title=${book.title}, isbn=${book.isbn}" sec:authorize="isAuthenticated()"><i class="icon-bookmark"></i>북마크</a></td>
                 </tr>
             </tbody>
         </table>
@@ -93,6 +93,48 @@
                 searchForm.submit();
             });
 
+            $(".bookMarkLink").click(function(e){
+                e.preventDefault();
+                var bookmark = {
+                    isbn: $(this).attr("isbn"),
+                    title: $(this).attr("title")
+                };
+
+                if (!confirm("북마크를 등록하시겠습니까?")) {
+                    return;
+                }
+
+                $.ajax({
+                    type: "GET",
+                    url: "/api/bookmarks/" + bookmark.isbn,
+                    dataType: "json",
+                    success: function (result) {
+                        if (result.message == "exist") {
+                            alert(result.error);
+                            return;
+                        } else {
+                            addBookMark(bookmark);
+                        }
+                    },
+                    error: function(xhr) {}
+                });
+            });
+
+            function addBookMark(bookmark) {
+                $.ajax({
+                    type: "POST",
+                    url: "/api/bookmarks",
+                    data: JSON.stringify(bookmark),
+                    contentType: "application/json",
+                    dataType: "json",
+                    success: function(result) {
+                        if (result.message == "success") {
+                            alert('북마크가 저장되었습니다.');
+                        }
+                    },
+                    error: function(xhr) {}
+                });
+            }
         });
     </script>
 </th:block>

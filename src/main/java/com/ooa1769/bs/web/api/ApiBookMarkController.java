@@ -31,12 +31,12 @@ public class ApiBookMarkController {
         BookMark bookMark = bookService.addBookMark(bookMarkDto, member);
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(URI.create(bookMark.generateRestUrl()));
-        return new ResponseEntity<>(headers, HttpStatus.CREATED);
+        return new ResponseEntity<>(new GenericResponse("success"), headers, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteBookMark(@PathVariable Long id) {
-        BookMark bookMark = bookService.getBookMark(id);
+        BookMark bookMark = bookService.getBookMarkById(id);
         bookService.deleteBookMark(bookMark);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -45,5 +45,12 @@ public class ApiBookMarkController {
     public ResponseEntity<?> getBookMarks(@LoginMember Member member, @RequestParam(defaultValue = "1") int page) {
         PageRequest pageRequest = new PageRequest(page - 1, 10);
         return ResponseEntity.ok(bookService.getBookMarksByMember(member, pageRequest));
+    }
+
+    @GetMapping("/{isbn}")
+    public ResponseEntity<?> isAddedBookMark(@LoginMember Member member, @PathVariable String isbn) {
+        boolean isAdded = bookService.isAddedBookMarkByMemberAndIsbn(member, isbn);
+        GenericResponse body =  isAdded ? new GenericResponse("exist", "이미 등록된 북마크입니다.") : new GenericResponse("not_exist");
+        return new ResponseEntity<>(body, new HttpHeaders(), HttpStatus.OK);
     }
 }

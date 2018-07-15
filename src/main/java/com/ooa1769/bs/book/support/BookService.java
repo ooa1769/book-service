@@ -42,6 +42,7 @@ public class BookService {
         return pageBook.getContent().get(0);
     }
 
+    // ============== BookMark ============
     public BookMark addBookMark(BookMarkDto bookMarkDto, Member member) {
         BookMark bookMark = bookMarkDto.createBookMark(member);
         return bookMarkRepository.save(bookMark);
@@ -52,7 +53,7 @@ public class BookService {
     }
 
     @Transactional(readOnly = true)
-    public BookMark getBookMark(Long id) {
+    public BookMark getBookMarkById(Long id) {
         return bookMarkRepository.findById(id)
                 .orElseThrow(() -> new IllegalStateException("해당 북마크가 존재하지 않습니다."));
     }
@@ -60,5 +61,10 @@ public class BookService {
     @Transactional(readOnly = true)
     public Page<BookMark> getBookMarksByMember(Member member, Pageable pageable) {
         return bookMarkRepository.findByMember(member, pageable);
+    }
+
+    @Transactional(readOnly = true)
+    public boolean isAddedBookMarkByMemberAndIsbn(Member member, String isbn) {
+        return bookMarkRepository.findByMemberAndIsbn(member, isbn).isPresent();
     }
 }
