@@ -2,6 +2,7 @@ package com.ooa1769.bs.member;
 
 import lombok.Getter;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -10,9 +11,11 @@ import java.util.Objects;
 public class SearchHistory {
 
     @Getter
+    @Column(nullable = false)
     private String searchKeyword;
 
     @Getter
+    @Column(nullable = false)
     private LocalDateTime searchDate;
 
     protected SearchHistory() {}

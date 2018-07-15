@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 
 @RestController
-@RequestMapping(Mappings.BOOKMARKS)
+@RequestMapping(Mappings.API_BOOKMARKS)
 public class ApiBookMarkController {
 
     private final BookService bookService;
