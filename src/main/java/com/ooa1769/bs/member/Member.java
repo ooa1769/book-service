@@ -5,10 +5,12 @@ import com.ooa1769.bs.support.jpa.AbstractEntity;
 import com.ooa1769.bs.support.jpa.BooleanToYNConverter;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 import java.util.Set;
 
+@Slf4j
 @Entity
 @Table(name = "member", indexes = {@Index(name = "idx_member_email",  columnList="email", unique = true)})
 @Convert(converter = BooleanToYNConverter.class, attributeName = "enabled")
@@ -20,7 +22,7 @@ public class Member extends AbstractEntity implements UrlGeneratable {
     private Long id;
 
     @Getter
-    @Column(length = 30, nullable = false)
+    @Column(length = 60, nullable = false)
     private String email;
 
     @Getter
@@ -82,7 +84,7 @@ public class Member extends AbstractEntity implements UrlGeneratable {
         return searchHistories.stream()
                 .filter(s -> s.equals(searchHistory))
                 .findFirst()
-                .orElseThrow(() -> new IllegalStateException("검색된 키워드가 없습니다."));
+                .orElse(null);
     }
 
     @Override

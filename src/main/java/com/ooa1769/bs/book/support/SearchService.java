@@ -1,8 +1,8 @@
 package com.ooa1769.bs.book.support;
 
-import com.ooa1769.bs.config.KakaoApiProperties;
 import com.ooa1769.bs.book.Book;
 import com.ooa1769.bs.book.SearchOption;
+import com.ooa1769.bs.config.KakaoApiProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,7 +19,6 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
