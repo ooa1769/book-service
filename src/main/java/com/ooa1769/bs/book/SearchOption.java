@@ -34,6 +34,11 @@ public class SearchOption {
         this.size = DEFAULT_SIZE;
     }
 
+    public SearchOption(int page, int size) {
+        this.page = page;
+        this.size = size;
+    }
+
     @Builder
     public SearchOption(int page, int size, String query, String target, Integer category) {
         this.page = page;

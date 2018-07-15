@@ -38,7 +38,7 @@ public class ApiBookMarkController {
     public ResponseEntity<?> deleteBookMark(@PathVariable Long id) {
         BookMark bookMark = bookService.getBookMarkById(id);
         bookService.deleteBookMark(bookMark);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(new GenericResponse("success"), new HttpHeaders(), HttpStatus.NO_CONTENT);
     }
 
     @GetMapping

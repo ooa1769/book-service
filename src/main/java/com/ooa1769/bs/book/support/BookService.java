@@ -29,12 +29,7 @@ public class BookService {
         return searchService.search(searchOption);
     }
 
-    public Book getBookByIsbn(String isbn) {
-        SearchOption searchOption = SearchOption.builder()
-                .target("isbn")
-                .query(isbn)
-                .build();
-
+    public Book getBookByIsbn(SearchOption searchOption) {
         Page<Book> pageBook = searchService.search(searchOption);
         if (pageBook.getTotalElements() == 0) {
             throw new BookNotFoundException("해당 책이 존재하지 않습니다.");

@@ -22,7 +22,7 @@ public class Member extends AbstractEntity implements UrlGeneratable {
     private Long id;
 
     @Getter
-    @Column(length = 30, nullable = false)
+    @Column(length = 60, nullable = false)
     private String email;
 
     @Getter
