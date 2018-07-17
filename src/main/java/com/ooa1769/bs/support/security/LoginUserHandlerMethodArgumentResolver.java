@@ -29,14 +29,6 @@ public class LoginUserHandlerMethodArgumentResolver implements HandlerMethodArgu
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
                                   NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-
-        /*
-        if (authentication.getAuthorities().contains()) {
-            LoginMember loginMember = parameter.getParameterAnnotation(LoginMember.class);
-            if (loginMember.required()) {
-                throw new UnAuthorizedException("로그인이 필요합니다.");
-            }
-        }*/
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
         Optional<Member> memberOpt = memberRepository.findByEmail(email);

@@ -38,11 +38,6 @@ public class BookMark extends AbstractEntity implements UrlGeneratable {
     }
 
     @Override
-    public String generateUrl() {
-        return null;
-    }
-
-    @Override
     public String generateRestUrl() {
         return String.format(Mappings.BOOKMARKS_CREATE_FORMAT, id);
     }

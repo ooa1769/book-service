@@ -1,10 +1,8 @@
 package com.ooa1769.bs.web;
 
-import com.ooa1769.bs.book.Book;
-import com.ooa1769.bs.book.BookMark;
-import com.ooa1769.bs.book.SearchOption;
-import com.ooa1769.bs.book.SearchTarget;
+import com.ooa1769.bs.book.*;
 import com.ooa1769.bs.book.support.BookService;
+import com.ooa1769.bs.book.support.SearchHistoryService;
 import com.ooa1769.bs.member.Member;
 import com.ooa1769.bs.member.support.MemberService;
 import com.ooa1769.bs.support.security.LoginMember;
@@ -26,18 +24,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class BookController {
 
     private final BookService bookService;
-    private final MemberService memberService;
+    private final SearchHistoryService searchHistoryService;
 
     @Autowired
-    public BookController(BookService bookService, MemberService memberService) {
+    public BookController(BookService bookService, SearchHistoryService searchHistoryService) {
         this.bookService = bookService;
-        this.memberService = memberService;
+        this.searchHistoryService = searchHistoryService;
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public String index(@LoginMember Member member, @ModelAttribute("searchOption") SearchOption searchOption, Model model) {
         if (!ObjectUtils.isEmpty(member) && !ObjectUtils.isEmpty(searchOption.getQuery())) {
-            memberService.addSearchHistory(member, searchOption.getQuery());
+            searchHistoryService.addSearchHistory(member.getEmail(), searchOption.getQuery());
         }
 
         Page<Book> pageBook = bookService.getBooksByKeyword(searchOption);
@@ -71,5 +69,19 @@ public class BookController {
         model.addAttribute("bookmarks", pageBookMark.getContent());
         model.addAttribute("pagingInfo", new PagingInfo(pageBookMark));
         return "book/bookmark";
+    }
+
+    // ============== BookMark ============
+    @RequestMapping("/history")
+    public String searchHistory(@LoginMember Member member,
+                                @RequestParam(defaultValue = "1") int page,
+                                @RequestParam(defaultValue = "10") int size,
+                                Model model) {
+        PageRequest pageRequest = new PageRequest(page - 1, size, Sort.Direction.DESC, "searchDate");
+        Page<SearchHistory> pageSearchHistory = searchHistoryService.getHistoryByMember(member, pageRequest);
+        model.addAttribute("searchOption", new SearchOption(page, size));
+        model.addAttribute("histories", pageSearchHistory.getContent());
+        model.addAttribute("pagingInfo", new PagingInfo(pageSearchHistory));
+        return "book/searchHistory";
     }
 }

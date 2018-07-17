@@ -5,6 +5,7 @@ import com.ooa1769.bs.book.BookMark;
 import com.ooa1769.bs.book.BookNotFoundException;
 import com.ooa1769.bs.book.SearchOption;
 import com.ooa1769.bs.member.Member;
+import com.ooa1769.bs.member.support.MemberRepository;
 import com.ooa1769.bs.web.dto.BookMarkDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,7 +21,7 @@ public class BookService {
     private final BookMarkRepository bookMarkRepository;
 
     @Autowired
-    public BookService(SearchService searchService, BookMarkRepository bookMarkRepository) {
+    public BookService(SearchService searchService, BookMarkRepository bookMarkRepository, MemberRepository memberRepository) {
         this.searchService = searchService;
         this.bookMarkRepository = bookMarkRepository;
     }
