@@ -5,7 +5,6 @@ import com.ooa1769.bs.member.support.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
-import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -34,7 +33,7 @@ public class LoginUserHandlerMethodArgumentResolver implements HandlerMethodArgu
         LoginMember loginUser = parameter.getParameterAnnotation(LoginMember.class);
         if (loginUser.query()) {
             Optional<Member> memberOpt = memberRepository.findByEmail(authentication.getName());
-            return memberOpt.orElseThrow(() -> new UnAuthorizedException("부적절한 접근입니다."));
+            return memberOpt.get();
         }
 
         return new Member(authentication.getName());

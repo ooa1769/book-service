@@ -1,10 +1,10 @@
 package com.ooa1769.bs.web;
 
 import com.ooa1769.bs.book.*;
+import com.ooa1769.bs.book.support.ApiSearchOption;
 import com.ooa1769.bs.book.support.BookService;
 import com.ooa1769.bs.book.support.SearchHistoryService;
 import com.ooa1769.bs.member.Member;
-import com.ooa1769.bs.member.support.MemberService;
 import com.ooa1769.bs.support.security.LoginMember;
 import com.ooa1769.bs.support.util.Mappings;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,20 +33,22 @@ public class BookController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String index(@LoginMember Member member, @ModelAttribute("searchOption") SearchOption searchOption, Model model) {
+    public String index(@LoginMember Member member,
+                        @ModelAttribute("searchOption") ApiSearchOption searchOption, Model model) {
         if (!ObjectUtils.isEmpty(member) && !ObjectUtils.isEmpty(searchOption.getQuery())) {
-            searchHistoryService.addSearchHistory(member.getEmail(), searchOption.getQuery());
+            searchHistoryService.addSearchHistory(member, searchOption.getQuery());
         }
 
         Page<Book> pageBook = bookService.getBooksByKeyword(searchOption);
         model.addAttribute("books", pageBook.getContent());
         model.addAttribute("targets", SearchTarget.values());
+        model.addAttribute("apiTypes", ApiType.values());
         model.addAttribute("pagingInfo", new PagingInfo(pageBook));
         return "book/index";
     }
 
     @RequestMapping(value = "/view", method = RequestMethod.GET)
-    public String view(@ModelAttribute("searchOption") SearchOption searchOption,
+    public String view(@ModelAttribute("searchOption") ApiSearchOption searchOption,
                        @RequestParam(defaultValue = "") String type,
                        @RequestParam(defaultValue = "") String keyword,
                        Model model) {
@@ -59,7 +61,7 @@ public class BookController {
 
     // ============== BookMark ============
     @RequestMapping(value = Mappings.BOOKMARK, method = RequestMethod.GET)
-    public String bookmarkList(@LoginMember(query = true) Member member,
+    public String bookmarkList(@LoginMember Member member,
                                @RequestParam(defaultValue = "1") int page,
                                @RequestParam(defaultValue = "10") int size,
                                Model model) {
@@ -73,7 +75,7 @@ public class BookController {
 
     // ============== BookMark ============
     @RequestMapping("/history")
-    public String searchHistory(@LoginMember(query = true) Member member,
+    public String searchHistory(@LoginMember Member member,
                                 @RequestParam(defaultValue = "1") int page,
                                 @RequestParam(defaultValue = "10") int size,
                                 Model model) {

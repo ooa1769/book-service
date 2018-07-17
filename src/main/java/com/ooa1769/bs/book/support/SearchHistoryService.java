@@ -2,7 +2,6 @@ package com.ooa1769.bs.book.support;
 
 import com.ooa1769.bs.book.SearchHistory;
 import com.ooa1769.bs.member.Member;
-import com.ooa1769.bs.member.support.MemberRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -14,19 +13,16 @@ import java.util.Optional;
 @Transactional
 public class SearchHistoryService {
 
-    private final MemberRepository memberRepository;
     private final SearchHistoryRepository searchHistoryRepository;
 
-    public SearchHistoryService(MemberRepository memberRepository, SearchHistoryRepository searchHistoryRepository) {
-        this.memberRepository = memberRepository;
+    public SearchHistoryService(SearchHistoryRepository searchHistoryRepository) {
         this.searchHistoryRepository = searchHistoryRepository;
     }
 
-    public SearchHistory addSearchHistory(String email, String searchKeyword) {
-        Optional<Member> memberOpt = memberRepository.findByEmail(email);
+    public SearchHistory addSearchHistory(Member member, String searchKeyword) {
         Optional<SearchHistory> searchHistoryOpt= searchHistoryRepository.findBySearchKeyword(searchKeyword);
         searchHistoryOpt.ifPresent(history -> searchHistoryRepository.delete(history));
-        SearchHistory searchHistory = new SearchHistory(searchKeyword, memberOpt.get());
+        SearchHistory searchHistory = new SearchHistory(searchKeyword, member);
         return searchHistoryRepository.save(searchHistory);
     }
 
