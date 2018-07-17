@@ -29,9 +29,14 @@ public class LoginUserHandlerMethodArgumentResolver implements HandlerMethodArgu
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
                                   NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-        Optional<Member> memberOpt = memberRepository.findByEmail(email);
-        return memberOpt.orElseThrow(() -> new UnAuthorizedException("로그인이 필요합니다."));
+        LoginMember loginUser = parameter.getParameterAnnotation(LoginMember.class);
+        if (loginUser.query()) {
+            Optional<Member> memberOpt = memberRepository.findByEmail(authentication.getName());
+            return memberOpt.orElseThrow(() -> new UnAuthorizedException("부적절한 접근입니다."));
+        }
+
+        return new Member(authentication.getName());
     }
 }

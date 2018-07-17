@@ -59,7 +59,7 @@ public class BookController {
 
     // ============== BookMark ============
     @RequestMapping(value = Mappings.BOOKMARK, method = RequestMethod.GET)
-    public String bookmarkList(@LoginMember Member member,
+    public String bookmarkList(@LoginMember(query = true) Member member,
                                @RequestParam(defaultValue = "1") int page,
                                @RequestParam(defaultValue = "10") int size,
                                Model model) {
@@ -73,7 +73,7 @@ public class BookController {
 
     // ============== BookMark ============
     @RequestMapping("/history")
-    public String searchHistory(@LoginMember Member member,
+    public String searchHistory(@LoginMember(query = true) Member member,
                                 @RequestParam(defaultValue = "1") int page,
                                 @RequestParam(defaultValue = "10") int size,
                                 Model model) {

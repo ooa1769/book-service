@@ -42,13 +42,13 @@ public class ApiBookMarkController {
     }
 
     @GetMapping
-    public ResponseEntity<?> getBookMarks(@LoginMember Member member, @RequestParam(defaultValue = "1") int page) {
+    public ResponseEntity<?> getBookMarks(@LoginMember(query = true) Member member, @RequestParam(defaultValue = "1") int page) {
         PageRequest pageRequest = new PageRequest(page - 1, 10);
         return ResponseEntity.ok(bookService.getBookMarksByMember(member, pageRequest));
     }
 
     @GetMapping("/{isbn}")
-    public ResponseEntity<?> isAddedBookMark(@LoginMember Member member, @PathVariable String isbn) {
+    public ResponseEntity<?> isAddedBookMark(@LoginMember(query = true) Member member, @PathVariable String isbn) {
         boolean isAdded = bookService.isAddedBookMarkByMemberAndIsbn(member, isbn);
         GenericResponse body =  isAdded ? new GenericResponse("exist", "이미 등록된 북마크입니다.") : new GenericResponse("not_exist");
         return new ResponseEntity<>(body, new HttpHeaders(), HttpStatus.OK);

@@ -37,6 +37,10 @@ public class Member extends AbstractEntity implements UrlGeneratable {
 
     protected Member() {}
 
+    public Member(String email) {
+        this.email = email;
+    }
+
     public Member(String email, String name, String password, boolean enabled) {
         this.email = email;
         this.name = name;
