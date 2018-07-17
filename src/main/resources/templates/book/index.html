@@ -9,6 +9,10 @@
 <div layout:fragment="content" class="container">
     <div class="panel-body">
         <form class="form-inline">
+            <select id="apiTpye" name="apiType" class="span2">
+                <option th:each="apiType : ${apiTypes}" th:value="${apiType.code}" th:text="${apiType.name}"
+                        th:selected="${searchOption.apiType.code} == ${apiType.code}"></option>
+            </select>
             <select id="target" name="target" class="span2">
                 <option th:each="target : ${targets}" th:value="${target.target}" th:text="${target.displayName}"
                         th:selected="${searchOption.target} == ${target.target}"></option>
@@ -54,6 +58,7 @@
     </div>
 
     <form id='searchForm' th:action="@{/book}" method="get">
+        <input type='hidden' name='apiType' th:value="${searchOption.apiType.code}" />
         <input type='hidden' name='page' th:value="${searchOption.page}" />
         <input type='hidden' name='size' th:value="${searchOption.size}" />
         <input type='hidden' name='target' th:value="${searchOption.target}"/>
@@ -67,12 +72,15 @@
             var searchForm = $("#searchForm");
 
             $("#searchBtn").click(function () {
+                var apiType = $("#apiType").find(":selected").val();
                 var target = $("#target").find(":selected").val();
                 var query = $("#query").val();
+                console.log(apiType);
+                searchForm.find("[name='apiType']").val(apiType);
                 searchForm.find("[name='target']").val(target);
                 searchForm.find("[name='query']").val(query);
                 searchForm.find("[name='page']").val("1");
-                searchForm.submit();
+                //searchForm.submit();
             });
 
             $("#searchBtn").keypress(function(e) {
@@ -89,8 +97,8 @@
 
             $(".bookLink").click(function(e){
                 e.preventDefault();
-                var isbn = $(this).attr("isbn");
                 searchForm.attr('action','/book/view');
+                var isbn = $(this).attr("isbn");
                 var type = searchForm.find("[name='target']").val();
                 var keyword = searchForm.find("[name='query']").val();
                 searchForm.append('<input type="hidden" name="type" value="' + type + '"/>');

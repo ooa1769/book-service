@@ -22,7 +22,7 @@ public class BookServiceTest {
 
     @Test
     public void 책_검색() throws Exception {
-        SearchOption searchOption = new SearchOption();
+        ApiSearchOption searchOption = new ApiSearchOption();
         searchOption.setQuery("토비의 스프링");
         searchOption.setTarget("title");
 
