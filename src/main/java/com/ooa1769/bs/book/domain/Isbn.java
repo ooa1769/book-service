@@ -1,7 +1,13 @@
 package com.ooa1769.bs.book.domain;
 
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.Embeddable;
+
+@NoArgsConstructor
+@Embeddable
 public class Isbn {
 
     public final static Isbn INVALID_ISBN = new Isbn("INVALID_ISBN");
@@ -9,6 +15,7 @@ public class Isbn {
     @Getter
     private String isbn;
 
+    @Builder
     public Isbn(String isbn) {
         this.isbn = isbn;
     }
@@ -34,6 +41,6 @@ public class Isbn {
 
     @Override
     public String toString() {
-        return "Isbn[" + "isbn=" + isbn + "]";
+        return isbn;
     }
 }

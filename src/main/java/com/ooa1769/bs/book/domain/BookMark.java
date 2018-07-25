@@ -19,7 +19,8 @@ public class BookMark extends AbstractEntity implements UrlGeneratable {
     private Long id;
 
     @Getter
-    private String isbn;
+    @Embedded
+    private Isbn isbn;
 
     @Getter
     private String title;
@@ -31,7 +32,7 @@ public class BookMark extends AbstractEntity implements UrlGeneratable {
     public BookMark() {
     }
 
-    public BookMark(String isbn, String title, Member member) {
+    public BookMark(Isbn isbn, String title, Member member) {
         this.isbn = isbn;
         this.title = title;
         this.member = member;

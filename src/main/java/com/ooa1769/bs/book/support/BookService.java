@@ -1,9 +1,6 @@
 package com.ooa1769.bs.book.support;
 
-import com.ooa1769.bs.book.domain.Book;
-import com.ooa1769.bs.book.domain.BookMark;
-import com.ooa1769.bs.book.domain.BookMarkNotFoundException;
-import com.ooa1769.bs.book.domain.BookNotFoundException;
+import com.ooa1769.bs.book.domain.*;
 import com.ooa1769.bs.member.Member;
 import com.ooa1769.bs.web.dto.BookMarkDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +56,7 @@ public class BookService {
     }
 
     @Transactional(readOnly = true)
-    public boolean isAddedBookMarkByMemberAndIsbn(Member member, String isbn) {
+    public boolean isAddedBookMarkByMemberAndIsbn(Member member, Isbn isbn) {
         return bookMarkRepository.findByMemberAndIsbn(member, isbn).isPresent();
     }
 }
