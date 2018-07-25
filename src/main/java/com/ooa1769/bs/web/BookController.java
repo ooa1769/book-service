@@ -1,12 +1,16 @@
 package com.ooa1769.bs.web;
 
 import com.ooa1769.bs.book.*;
+import com.ooa1769.bs.book.domain.Book;
+import com.ooa1769.bs.book.domain.BookMark;
+import com.ooa1769.bs.book.domain.SearchHistory;
 import com.ooa1769.bs.book.support.ApiSearchOption;
 import com.ooa1769.bs.book.support.BookService;
 import com.ooa1769.bs.book.support.SearchHistoryService;
 import com.ooa1769.bs.member.Member;
 import com.ooa1769.bs.support.security.LoginMember;
 import com.ooa1769.bs.support.util.Mappings;
+import com.ooa1769.bs.web.paging.PagingInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -40,8 +44,8 @@ public class BookController {
         }
 
         Page<Book> pageBook = bookService.getBooksByKeyword(searchOption);
-        model.addAttribute("books", pageBook.getContent());
         model.addAttribute("targets", SearchTarget.values());
+        model.addAttribute("books", pageBook.getContent());
         model.addAttribute("apiTypes", ApiType.values());
         model.addAttribute("pagingInfo", new PagingInfo(pageBook));
         return "book/index";
@@ -73,7 +77,7 @@ public class BookController {
         return "book/bookmark";
     }
 
-    // ============== BookMark ============
+    // ============== SearchHistory ============
     @RequestMapping("/history")
     public String searchHistory(@LoginMember Member member,
                                 @RequestParam(defaultValue = "1") int page,

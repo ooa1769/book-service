@@ -1,8 +1,10 @@
 package com.ooa1769.bs.book.support;
 
-import com.ooa1769.bs.book.*;
+import com.ooa1769.bs.book.domain.Book;
+import com.ooa1769.bs.book.domain.BookMark;
+import com.ooa1769.bs.book.domain.BookMarkNotFoundException;
+import com.ooa1769.bs.book.domain.BookNotFoundException;
 import com.ooa1769.bs.member.Member;
-import com.ooa1769.bs.member.support.MemberRepository;
 import com.ooa1769.bs.web.dto.BookMarkDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,7 +20,7 @@ public class BookService {
     private final BookMarkRepository bookMarkRepository;
 
     @Autowired
-    public BookService(SearchService searchService, BookMarkRepository bookMarkRepository, MemberRepository memberRepository) {
+    public BookService(SearchService searchService, BookMarkRepository bookMarkRepository) {
         this.searchService = searchService;
         this.bookMarkRepository = bookMarkRepository;
     }
@@ -48,7 +50,7 @@ public class BookService {
     @Transactional(readOnly = true)
     public BookMark getBookMarkById(Long id) {
         return bookMarkRepository.findById(id)
-                .orElseThrow(() -> new IllegalStateException("해당 북마크가 존재하지 않습니다."));
+                .orElseThrow(() -> new BookMarkNotFoundException("해당 북마크가 존재하지 않습니다."));
     }
 
     @Transactional(readOnly = true)

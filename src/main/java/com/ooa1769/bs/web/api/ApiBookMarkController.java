@@ -1,6 +1,6 @@
 package com.ooa1769.bs.web.api;
 
-import com.ooa1769.bs.book.BookMark;
+import com.ooa1769.bs.book.domain.BookMark;
 import com.ooa1769.bs.book.support.BookService;
 import com.ooa1769.bs.member.Member;
 import com.ooa1769.bs.support.security.LoginMember;

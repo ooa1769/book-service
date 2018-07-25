@@ -1,6 +1,6 @@
 package com.ooa1769.bs.book.support;
 
-import com.ooa1769.bs.book.BookMark;
+import com.ooa1769.bs.book.domain.BookMark;
 import com.ooa1769.bs.member.Member;
 import org.junit.Before;
 import org.junit.Test;

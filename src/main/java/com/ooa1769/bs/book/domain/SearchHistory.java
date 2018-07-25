@@ -1,4 +1,4 @@
-package com.ooa1769.bs.book;
+package com.ooa1769.bs.book.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ooa1769.bs.member.Member;

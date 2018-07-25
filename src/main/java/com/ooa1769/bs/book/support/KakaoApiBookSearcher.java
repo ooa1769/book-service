@@ -2,8 +2,8 @@ package com.ooa1769.bs.book.support;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.ooa1769.bs.book.Book;
-import com.ooa1769.bs.book.SearchOption;
+import com.ooa1769.bs.book.*;
+import com.ooa1769.bs.book.domain.*;
 import com.ooa1769.bs.config.KakaoApiProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -45,7 +45,7 @@ public class KakaoApiBookSearcher implements ApiBookSearcher {
     @Override
     public Page<Book> search(ApiSearchOption apiSearchOption) {
         if (StringUtils.isEmpty(apiSearchOption.getQuery())) {
-            return new PageImpl<>(Collections.emptyList());
+            return new PageImpl<>(Collections.emptyList(), new PageRequest(0, 10), 0);
         }
 
         Optional<SearchResult> resultOpt = execute(apiSearchOption);
@@ -56,6 +56,7 @@ public class KakaoApiBookSearcher implements ApiBookSearcher {
                     .map(this::convertBook)
                     .collect(Collectors.toList());
 
+            log.debug("books count : {}, pageableCount : {}", books.size(), searchResult.getMeta().getPageableCount());
             return new PageImpl<>(books,
                     new PageRequest(apiSearchOption.getPage() - 1, apiSearchOption.getSize()),
                     searchResult.getMeta().getPageableCount());
@@ -91,19 +92,16 @@ public class KakaoApiBookSearcher implements ApiBookSearcher {
                 .title(document.getTitle())
                 .contents(document.getContents())
                 .url(document.getUrl())
-                .isbn(document.getIsbn())
+                .isbn(document.toIsbn())
                 .datetime(document.getDatetime())
                 .authors(document.getAuthors())
                 .publisher(document.getPublisher())
                 .translators(document.getTranslators())
-                .price(document.getPrice())
-                .salePrice(document.getSalePrice())
-                .saleYn(document.getSaleYn())
+                .price(document.toPrice())
                 .category(document.getCategory())
                 .thumbnail(document.getThumbnail())
-                .barcode(document.getBarcode())
-                .ebookBarcode(document.getEbookBarcode())
-                .status(document.getStatus())
+                .barcode(document.toBarcode())
+                .saleStatus(document.toSaleStatus())
                 .build();
     }
 
@@ -137,6 +135,34 @@ public class KakaoApiBookSearcher implements ApiBookSearcher {
             @JsonProperty("ebook_barcode")
             private String ebookBarcode;
             private String status;
+
+            Isbn toIsbn() {
+                if (!StringUtils.isEmpty(isbn)) {
+                    String[] isbns = isbn.split(" ");
+
+                    log.debug("{} /", isbn);
+                    // isbn값이 "  " 으로 넘어오는 케이스
+                    if (isbns.length == 0) {
+                        return Isbn.INVALID_ISBN;
+                    }
+                    isbn = isbns.length == 2 ? isbns[1] : isbns[0];
+                    return new Isbn(isbn);
+                }
+
+                return Isbn.INVALID_ISBN;
+            }
+
+            Price toPrice() {
+                return new Price(price, salePrice);
+            }
+
+            Barcode toBarcode() {
+                return new Barcode(barcode, ebookBarcode);
+            }
+
+            SaleStatus toSaleStatus() {
+                return "Y".equals(saleYn) ? SaleStatus.Y : SaleStatus.N;
+            }
         }
 
         @Getter

@@ -1,7 +1,6 @@
 package com.ooa1769.bs.book.support;
 
-import com.ooa1769.bs.book.Book;
-import com.ooa1769.bs.book.SearchOption;
+import com.ooa1769.bs.book.domain.Book;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

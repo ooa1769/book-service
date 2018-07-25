@@ -1,7 +1,7 @@
 package com.ooa1769.bs.book.support;
 
 import com.ooa1769.bs.book.ApiType;
-import com.ooa1769.bs.book.Book;
+import com.ooa1769.bs.book.domain.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;

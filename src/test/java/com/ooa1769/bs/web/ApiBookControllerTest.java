@@ -24,7 +24,7 @@ public class ApiBookControllerTest {
     private MockMvc mvc;
 
     @Test
-    @WithUserDetails(value = "ooa1769@naver.com", userDetailsServiceBeanName = "securityUserDetailService")
+    @WithUserDetails(value = "test1@test.com", userDetailsServiceBeanName = "securityUserDetailService")
     public void search() throws Exception {
         mvc.perform(get("/api/books/search")
                 .param("target", "title")
