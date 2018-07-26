@@ -1,6 +1,6 @@
 package com.ooa1769.bs.web.api;
 
-import com.ooa1769.bs.book.support.ApiSearchOption;
+import com.ooa1769.bs.book.support.search.ApiSearchOption;
 import com.ooa1769.bs.book.support.BookService;
 import com.ooa1769.bs.book.support.SearchHistoryService;
 import com.ooa1769.bs.member.Member;

@@ -10,4 +10,9 @@ public enum SaleStatus {
     SaleStatus(String status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return status;
+    }
 }

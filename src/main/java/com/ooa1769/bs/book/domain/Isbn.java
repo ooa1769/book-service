@@ -1,6 +1,5 @@
 package com.ooa1769.bs.book.domain;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,18 +9,39 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Isbn {
 
-    public final static Isbn INVALID_ISBN = new Isbn("INVALID_ISBN");
+    private final static int ISBN_10_LENGTH = 10;
+    private final static int ISBN_13_LENGTH = 13;
+
+    public final static String NOT_EXISTS_ISBN_STR = "NOT_EXISTS_ISBN";
+    public final static Isbn NOT_EXISTS_ISBN = new Isbn(NOT_EXISTS_ISBN_STR);
 
     @Getter
     private String isbn;
 
-    @Builder
     public Isbn(String isbn) {
+        if (!isValidIsbnLength(isbn)) {
+            throw new IsbnInvalidException("유효하지 않는 ISBN입니다.");
+        }
         this.isbn = isbn;
     }
 
-    public boolean isValid() {
-        return this != INVALID_ISBN;
+    private boolean isValidIsbnLength(String isbn) {
+        return isbn.length() == ISBN_13_LENGTH || isbn.length() == ISBN_10_LENGTH || NOT_EXISTS_ISBN_STR.equals(isbn);
+    }
+
+    public static Isbn createIsbnByApi(String isbn) {
+        String[] isbns = isbn.split(" ");
+
+        if (isbns.length == 0) {
+            return NOT_EXISTS_ISBN;
+        }
+
+        return createIsbnByApi(isbns);
+    }
+
+    public static Isbn createIsbnByApi(String[] isbns) {
+        String isbn = isbns.length == 2 ? isbns[1] : isbns[0];
+        return new Isbn(isbn);
     }
 
     @Override

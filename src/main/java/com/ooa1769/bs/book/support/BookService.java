@@ -1,6 +1,8 @@
 package com.ooa1769.bs.book.support;
 
 import com.ooa1769.bs.book.domain.*;
+import com.ooa1769.bs.book.support.search.ApiSearchOption;
+import com.ooa1769.bs.book.support.search.SearchService;
 import com.ooa1769.bs.member.Member;
 import com.ooa1769.bs.web.dto.BookMarkDto;
 import org.springframework.beans.factory.annotation.Autowired;

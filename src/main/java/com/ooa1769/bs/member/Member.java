@@ -57,6 +57,21 @@ public class Member extends AbstractEntity implements UrlGeneratable {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Member member = (Member) o;
+
+        return email != null ? email.equals(member.email) : member.email == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return email != null ? email.hashCode() : 0;
+    }
+
+    @Override
     public String generateRestUrl() {
         return String.format("/api/members/%d", id);
     }

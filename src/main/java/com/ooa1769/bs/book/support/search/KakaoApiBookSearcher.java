@@ -1,4 +1,4 @@
-package com.ooa1769.bs.book.support;
+package com.ooa1769.bs.book.support.search;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -137,19 +137,7 @@ public class KakaoApiBookSearcher implements ApiBookSearcher {
             private String status;
 
             Isbn toIsbn() {
-                if (!StringUtils.isEmpty(isbn)) {
-                    String[] isbns = isbn.split(" ");
-
-                    log.debug("{} /", isbn);
-                    // isbn값이 "  " 으로 넘어오는 케이스
-                    if (isbns.length == 0) {
-                        return Isbn.INVALID_ISBN;
-                    }
-                    isbn = isbns.length == 2 ? isbns[1] : isbns[0];
-                    return new Isbn(isbn);
-                }
-
-                return Isbn.INVALID_ISBN;
+                return Isbn.createIsbnByApi(isbn);
             }
 
             Price toPrice() {

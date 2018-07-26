@@ -1,4 +1,4 @@
-package com.ooa1769.bs.book.support;
+package com.ooa1769.bs.book.support.search;
 
 import com.ooa1769.bs.book.ApiType;
 import com.ooa1769.bs.book.domain.Book;
@@ -22,7 +22,6 @@ public class SearchService {
 
     public Page<Book> search(ApiSearchOption apiSearchOption) {
         ApiType apiType = apiSearchOption.getApiType();
-        ApiBookSearcher apiBookSearcher = searchers.get(apiType);
-        return apiBookSearcher.search(apiSearchOption);
+        return searchers.get(apiType).search(apiSearchOption);
     }
 }

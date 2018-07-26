@@ -58,8 +58,4 @@ public class Book {
     public Integer getSalePrice() {
         return price.getSalePrice();
     }
-
-    public boolean isIsbnValid() {
-        return isbn.isValid();
-    }
 }

@@ -4,7 +4,7 @@ import com.ooa1769.bs.book.*;
 import com.ooa1769.bs.book.domain.Book;
 import com.ooa1769.bs.book.domain.BookMark;
 import com.ooa1769.bs.book.domain.SearchHistory;
-import com.ooa1769.bs.book.support.ApiSearchOption;
+import com.ooa1769.bs.book.support.search.ApiSearchOption;
 import com.ooa1769.bs.book.support.BookService;
 import com.ooa1769.bs.book.support.SearchHistoryService;
 import com.ooa1769.bs.member.Member;

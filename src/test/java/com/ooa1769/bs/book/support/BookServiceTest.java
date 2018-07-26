@@ -1,6 +1,7 @@
 package com.ooa1769.bs.book.support;
 
 import com.ooa1769.bs.book.domain.Book;
+import com.ooa1769.bs.book.support.search.ApiSearchOption;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
