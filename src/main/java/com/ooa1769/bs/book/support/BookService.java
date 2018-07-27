@@ -2,7 +2,7 @@ package com.ooa1769.bs.book.support;
 
 import com.ooa1769.bs.book.domain.*;
 import com.ooa1769.bs.book.support.search.ApiType;
-import com.ooa1769.bs.book.support.search.BookSearchParam;
+import com.ooa1769.bs.web.dto.BookSearchParam;
 import com.ooa1769.bs.book.support.search.SearchService;
 import com.ooa1769.bs.member.Member;
 import com.ooa1769.bs.web.dto.BookMarkDto;

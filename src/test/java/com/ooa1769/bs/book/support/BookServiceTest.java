@@ -2,7 +2,7 @@ package com.ooa1769.bs.book.support;
 
 import com.ooa1769.bs.book.domain.Book;
 import com.ooa1769.bs.book.support.search.ApiType;
-import com.ooa1769.bs.book.support.search.BookSearchParam;
+import com.ooa1769.bs.web.dto.BookSearchParam;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

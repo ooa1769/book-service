@@ -1,8 +1,8 @@
 package com.ooa1769.bs.book.support.search.kakao;
 
-import com.ooa1769.bs.support.util.EnumMapper;
+import com.ooa1769.bs.support.domain.EnumMapperType;
 
-public enum KakaoTargetType implements EnumMapper {
+public enum KakaoTargetType implements EnumMapperType {
 
     ALL("전체"),
     TITLE("책제목"),

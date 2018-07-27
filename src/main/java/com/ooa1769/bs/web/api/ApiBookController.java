@@ -3,7 +3,7 @@ package com.ooa1769.bs.web.api;
 import com.ooa1769.bs.book.support.BookService;
 import com.ooa1769.bs.book.support.SearchHistoryService;
 import com.ooa1769.bs.book.support.search.ApiType;
-import com.ooa1769.bs.book.support.search.BookSearchParam;
+import com.ooa1769.bs.web.dto.BookSearchParam;
 import com.ooa1769.bs.member.Member;
 import com.ooa1769.bs.support.security.LoginMember;
 import com.ooa1769.bs.support.util.Mappings;

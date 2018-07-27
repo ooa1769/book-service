@@ -1,4 +1,4 @@
-package com.ooa1769.bs.book.support.search;
+package com.ooa1769.bs.web.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -93,6 +93,6 @@ public class BookSearchParam {
 
     @Override
     public String toString() {
-        return "Member [page=" + page + ", size=" + size + ", query=" + query + ", target=" + target + ", category=" + category + ", sort=" + sort + "]";
+        return "BookSearchParam [page=" + page + ", size=" + size + ", query=" + query + ", target=" + target + ", category=" + category + ", sort=" + sort + "]";
     }
 }

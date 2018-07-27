@@ -6,10 +6,12 @@ import com.ooa1769.bs.book.domain.SearchHistory;
 import com.ooa1769.bs.book.support.BookService;
 import com.ooa1769.bs.book.support.SearchHistoryService;
 import com.ooa1769.bs.book.support.search.ApiType;
-import com.ooa1769.bs.book.support.search.BookSearchParam;
+import com.ooa1769.bs.web.dto.BookSearchParam;
 import com.ooa1769.bs.member.Member;
+import com.ooa1769.bs.support.domain.EnumMapper;
 import com.ooa1769.bs.support.security.LoginMember;
 import com.ooa1769.bs.support.util.Mappings;
+import com.ooa1769.bs.web.dto.PrevBookSearchParam;
 import com.ooa1769.bs.web.paging.PagingInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,11 +28,13 @@ public class BookController {
 
     private final BookService bookService;
     private final SearchHistoryService searchHistoryService;
+    private final EnumMapper enumMapper;
 
     @Autowired
-    public BookController(BookService bookService, SearchHistoryService searchHistoryService) {
+    public BookController(BookService bookService, SearchHistoryService searchHistoryService, EnumMapper enumMapper) {
         this.bookService = bookService;
         this.searchHistoryService = searchHistoryService;
+        this.enumMapper = enumMapper;
     }
 
     @RequestMapping(value = "/search/{apiType}", method = RequestMethod.GET)
@@ -42,9 +46,9 @@ public class BookController {
         }
 
         Page<Book> pageBook = bookService.getBooksByKeyword(apiType, bookSearchParam);
-        model.addAttribute("targets", apiType.targetTypeValues());
-        model.addAttribute("categories", apiType.categoryTypeValues());
-        model.addAttribute("sorts", apiType.sortTypeValues());
+        model.addAttribute("targets", enumMapper.targetTypeValues(apiType));
+        model.addAttribute("categories", enumMapper.categoryTypeValues(apiType));
+        model.addAttribute("sorts", enumMapper.sortTypeValues(apiType));
         model.addAttribute("books", pageBook.getContent());
         model.addAttribute("apiType", apiType);
         model.addAttribute("pagingInfo", new PagingInfo(pageBook));
@@ -54,12 +58,9 @@ public class BookController {
     @RequestMapping(value = "/book/{apiType}", method = RequestMethod.GET)
     public String view(@PathVariable("apiType") ApiType apiType,
                        @ModelAttribute("searchOption") BookSearchParam bookSearchParam,
-                       @RequestParam(defaultValue = "") String type,
-                       @RequestParam(defaultValue = "") String keyword,
+                       @ModelAttribute("prevSearchOption") PrevBookSearchParam prevBookSearchParam,
                        Model model) {
         model.addAttribute("book", bookService.getBookByIsbn(apiType, bookSearchParam));
-        model.addAttribute("type", type);
-        model.addAttribute("keyword", keyword);
         model.addAttribute("apiType", apiType);
         return "book/view";
     }

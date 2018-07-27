@@ -111,10 +111,14 @@
                 }
 
                 searchForm.attr('action', '/book/' + $('#apiType').val());
-                var type = searchForm.find("[name='target']").val();
-                var keyword = searchForm.find("[name='query']").val();
-                searchForm.append('<input type="hidden" name="type" value="' + type + '"/>');
-                searchForm.append('<input type="hidden" name="keyword" value="' + keyword +'"/>');
+                var prevTarget = searchForm.find("[name='target']").val();
+                var prevQuery = searchForm.find("[name='query']").val();
+                var prevCategory = searchForm.find("[name='category']").val();
+                var prevSort = searchForm.find("[name='sort']").val();
+                searchForm.append('<input type="hidden" name="prevTarget" value="' + prevTarget + '"/>');
+                searchForm.append('<input type="hidden" name="prevQuery" value="' + prevQuery +'"/>');
+                searchForm.append('<input type="hidden" name="prevCategory" value="' + prevCategory + '"/>');
+                searchForm.append('<input type="hidden" name="prevSort" value="' + prevSort +'"/>');
                 searchForm.find('[name="target"]').val('isbn');
                 searchForm.find('[name="query"]').val(isbn);
                 searchForm.find('[name="category"]').val('ALL');

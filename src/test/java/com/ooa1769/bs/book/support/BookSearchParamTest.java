@@ -1,6 +1,6 @@
 package com.ooa1769.bs.book.support;
 
-import com.ooa1769.bs.book.support.search.BookSearchParam;
+import com.ooa1769.bs.web.dto.BookSearchParam;
 import org.junit.Test;
 
 import java.util.Map;
