@@ -1,10 +1,9 @@
-package com.ooa1769.bs.book.support.search;
+package com.ooa1769.bs.book.support.search.kakao;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.ooa1769.bs.book.*;
 import com.ooa1769.bs.book.domain.*;
-import com.ooa1769.bs.config.KakaoApiProperties;
+import com.ooa1769.bs.book.support.search.BookSearchClient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -25,30 +24,31 @@ import org.springframework.web.client.RestTemplate;
 import java.time.ZonedDateTime;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 @Qualifier("kakao")
 @Slf4j
-public class KakaoApiBookSearcher implements ApiBookSearcher {
+public class KakaoBookSearchClient implements BookSearchClient {
 
     private final RestTemplate restTemplate;
     private final KakaoApiProperties properties;
 
     @Autowired
-    public KakaoApiBookSearcher(RestTemplate restTemplate, KakaoApiProperties properties) {
+    public KakaoBookSearchClient(RestTemplate restTemplate, KakaoApiProperties properties) {
         this.restTemplate = restTemplate;
         this.properties = properties;
     }
 
     @Override
-    public Page<Book> search(ApiSearchOption apiSearchOption) {
-        if (StringUtils.isEmpty(apiSearchOption.getQuery())) {
-            return new PageImpl<>(Collections.emptyList(), new PageRequest(0, 10), 0);
+    public Page<Book> search(Pageable pageable, Map<String, String> queryParam) {
+        if (StringUtils.isEmpty(queryParam.get("query"))) {
+            return new PageImpl<>(Collections.emptyList());
         }
 
-        Optional<SearchResult> resultOpt = execute(apiSearchOption);
+        Optional<SearchResult> resultOpt = execute(queryParam);
 
         if (resultOpt.isPresent()) {
             SearchResult searchResult = resultOpt.get();
@@ -58,17 +58,17 @@ public class KakaoApiBookSearcher implements ApiBookSearcher {
 
             log.debug("books count : {}, pageableCount : {}", books.size(), searchResult.getMeta().getPageableCount());
             return new PageImpl<>(books,
-                    new PageRequest(apiSearchOption.getPage() - 1, apiSearchOption.getSize()),
+                    pageable,
                     searchResult.getMeta().getPageableCount());
         }
 
         return new PageImpl<>(Collections.emptyList());
     }
 
-    private Optional<SearchResult> execute(SearchOption searchOption) {
+    private Optional<SearchResult> execute(Map<String, String> queryParam) {
         ResponseEntity<SearchResult> responseEntity = null;
 
-        String url = properties.getUrl(searchOption.queryParam());
+        String url = properties.requestUrl(queryParam);
         try {
             responseEntity = restTemplate.exchange(url,
                     HttpMethod.GET,

@@ -44,11 +44,10 @@
                     </table>
                 </li>
             </ul>
-            <p><a th:href="@{ /book(page=${searchOption.page},
+            <p><a th:href="@{'/search/' + ${apiType.code} (page=${searchOption.page},
 			                size=${searchOption.size},
 			                query=${keyword},
-			                target=${type},
-			                apiType=${searchOption.apiType.code}
+			                target=${type}
 			             )}" class="btn btn-small btn-primary pull-right" >목록으로</a>
             </p>
         </div>

@@ -21,7 +21,7 @@
                 <td colspan="3">검색한 내역이 없습니다.</td>
             </tr>
             <tr th:each="history, index : ${histories}">
-                <td th:text="${index.index + 1 + ((searchOption.page - 1) * searchOption.size)}"></td>
+                <td th:text="${index.index + 1 + (pageable.getPageNumber() * pageable.getPageSize())}"></td>
                 <td th:text="${history.searchKeyword}"></td>
                 <td th:text="${history.formattedSearchDate}"></td>
             </tr>
@@ -36,9 +36,9 @@
             </ul>
         </div>
     </div>
-    <form id='pagingForm' th:action="@{/book/history}" method="get">
-        <input type='hidden' name='page' th:value="${searchOption.page}" />
-        <input type='hidden' name='size' th:value="${searchOption.size}" />
+    <form id='pagingForm' th:action="@{/history}" method="get">
+        <input type='hidden' name='page' th:value="${pageable.getPageNumber() + 1}" />
+        <input type='hidden' name='size' th:value="${pageable.getPageSize()}" />
     </form>
 </div>
 </body>

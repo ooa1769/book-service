@@ -1,7 +1,8 @@
 package com.ooa1769.bs.book.support;
 
 import com.ooa1769.bs.book.domain.Book;
-import com.ooa1769.bs.book.support.search.ApiSearchOption;
+import com.ooa1769.bs.book.support.search.ApiType;
+import com.ooa1769.bs.book.support.search.BookSearchParam;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +23,11 @@ public class BookServiceTest {
 
     @Test
     public void 책_검색() throws Exception {
-        ApiSearchOption searchOption = new ApiSearchOption();
+        BookSearchParam searchOption = new BookSearchParam();
         searchOption.setQuery("토비의 스프링");
         searchOption.setTarget("title");
 
-        Page<Book> books = bookService.getBooksByKeyword(searchOption);
+        Page<Book> books = bookService.getBooksByKeyword(ApiType.KAKAO, searchOption);
         assertThat(books).isNotEmpty();
         assertThat(books.getNumber()).isEqualTo(0);
         assertThat(books.getSize()).isEqualTo(10);

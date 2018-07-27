@@ -23,7 +23,7 @@
                 <td colspan="5">저장한 북마크가 없습니다.</td>
             </tr>
             <tr th:each="bookmark, index : ${bookmarks}">
-                <td th:text="${index.index + 1 + ((searchOption.page - 1) * searchOption.size)}"></td>
+                <td th:text="${index.index + 1 + (pageable.getPageNumber() * pageable.getPageSize())}"></td>
                 <td th:text="${bookmark.isbn}"></td>
                 <td th:text="${bookmark.title}"></td>
                 <td th:text="${bookmark.formattedCreateDate}"></td>
@@ -40,9 +40,9 @@
             </ul>
         </div>
     </div>
-    <form id='pagingForm' th:action="@{/book/bookmark}" method="get">
-        <input type='hidden' name='page' th:value="${searchOption.page}" />
-        <input type='hidden' name='size' th:value="${searchOption.size}" />
+    <form id='pagingForm' th:action="@{/bookmark}" method="get">
+        <input type='hidden' name='page' th:value="${pageable.getPageNumber() + 1}" />
+        <input type='hidden' name='size' th:value="${pageable.getPageSize()}" />
     </form>
 </div>
 </body>

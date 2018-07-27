@@ -1,7 +1,8 @@
 package com.ooa1769.bs.book.support;
 
 import com.ooa1769.bs.book.domain.*;
-import com.ooa1769.bs.book.support.search.ApiSearchOption;
+import com.ooa1769.bs.book.support.search.ApiType;
+import com.ooa1769.bs.book.support.search.BookSearchParam;
 import com.ooa1769.bs.book.support.search.SearchService;
 import com.ooa1769.bs.member.Member;
 import com.ooa1769.bs.web.dto.BookMarkDto;
@@ -24,12 +25,12 @@ public class BookService {
         this.bookMarkRepository = bookMarkRepository;
     }
 
-    public Page<Book> getBooksByKeyword(ApiSearchOption apiSearchOption) {
-        return searchService.search(apiSearchOption);
+    public Page<Book> getBooksByKeyword(ApiType apiType, BookSearchParam bookSearchParam) {
+        return searchService.search(apiType, bookSearchParam);
     }
 
-    public Book getBookByIsbn(ApiSearchOption apiSearchOption) {
-        Page<Book> pageBook = searchService.search(apiSearchOption);
+    public Book getBookByIsbn(ApiType apiType, BookSearchParam bookSearchParam) {
+        Page<Book> pageBook = searchService.search(apiType, bookSearchParam);
         if (pageBook.getTotalElements() == 0) {
             throw new BookNotFoundException("해당 책이 존재하지 않습니다.");
         }
