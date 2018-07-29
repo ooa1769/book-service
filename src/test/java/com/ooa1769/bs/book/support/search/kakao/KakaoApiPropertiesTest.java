@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 
 public class KakaoApiPropertiesTest {
 
@@ -16,22 +15,17 @@ public class KakaoApiPropertiesTest {
     @Before
     public void setUp() throws Exception {
         properties = new KakaoApiProperties();
+        properties.setUrl("https://dapi.kakao.com/v2/search/book");
+        properties.setKey("1abc24343adcf43asd6keka42");
     }
 
     @Test
-    public void 디폴트_URL_속성값() {
+    public void 카카오_api_url_확인() {
         assertEquals("https://dapi.kakao.com/v2/search/book", properties.getUrl());
-        assertNull(properties.getKey());
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void 인증_헤더_값_검증_api키값_없는경우() {
-        properties.authorizationHeaderValue();
     }
 
     @Test
     public void 인증_헤더_값_검증() {
-        properties.setKey("1abc24343adcf43asd6keka42");
         assertEquals("KakaoAK 1abc24343adcf43asd6keka42", properties.authorizationHeaderValue());
     }
 

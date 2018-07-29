@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ooa1769.bs.book.domain.*;
 import com.ooa1769.bs.book.support.search.BookSearchClient;
+import com.ooa1769.bs.book.support.search.SearchException;
+import com.ooa1769.bs.web.dto.BookSearchParam;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -43,8 +44,10 @@ public class KakaoBookSearchClient implements BookSearchClient {
     }
 
     @Override
-    public Page<Book> search(Pageable pageable, Map<String, String> queryParam) {
-        if (StringUtils.isEmpty(queryParam.get("query"))) {
+    public Page<Book> search(BookSearchParam bookSearchParam) {
+        Map<String, String> queryParam = bookSearchParam.queryParam();
+
+        if (StringUtils.isEmpty(bookSearchParam.getQuery())) {
             return new PageImpl<>(Collections.emptyList());
         }
 
@@ -58,7 +61,7 @@ public class KakaoBookSearchClient implements BookSearchClient {
 
             log.debug("books count : {}, pageableCount : {}", books.size(), searchResult.getMeta().getPageableCount());
             return new PageImpl<>(books,
-                    pageable,
+                    bookSearchParam.pageable(),
                     searchResult.getMeta().getPageableCount());
         }
 
@@ -76,6 +79,7 @@ public class KakaoBookSearchClient implements BookSearchClient {
                     SearchResult.class);
         } catch (RestClientException e) {
             log.error("RestClientException {}", e.getMessage());
+            throw new SearchException("네이버 책 검색 API 호출 중 오류가 발생하였습니다.");
         }
 
         return Optional.ofNullable(responseEntity.getBody());

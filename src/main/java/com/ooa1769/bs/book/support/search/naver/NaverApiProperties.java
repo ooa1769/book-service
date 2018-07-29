@@ -1,10 +1,9 @@
-package com.ooa1769.bs.book.support.search.kakao;
+package com.ooa1769.bs.book.support.search.naver;
 
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.util.Assert;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
@@ -13,19 +12,26 @@ import java.util.Map;
 @Getter
 @Setter
 @Component
-public class KakaoApiProperties {
+public class NaverApiProperties {
 
-    private final static String KAKAO_AUTHORIZATION_HEADER = "KakaoAK";
+    private final static String NAVER_AUTHORIZATION_HEADER_CLIENT_ID = "X-Naver-Client-Id";
+    private final static String KAKAO_AUTHORIZATION_HEADER_CLIENT_SECRET = "X-Naver-Client-Secret";
 
-    @Value("${kakao.api.key}")
-    private String key;
-
-    @Value("${kakao.api.url}")
+    @Value("${naver.api.url}")
     private String url;
 
-    public String authorizationHeaderValue() {
-        Assert.notNull(key, "api key not null");
-        return String.format("%s %s",KAKAO_AUTHORIZATION_HEADER, key);
+    @Value("${naver.api.clientId}")
+    private String clientId;
+
+    @Value("${naver.api.clientSecret}")
+    private String clientSecret;
+
+    public String getHeaderClientId() {
+        return NAVER_AUTHORIZATION_HEADER_CLIENT_ID;
+    }
+
+    public String getHeaderClientSecret() {
+        return KAKAO_AUTHORIZATION_HEADER_CLIENT_SECRET;
     }
 
     public String requestUrl(Map<String, String> params) {

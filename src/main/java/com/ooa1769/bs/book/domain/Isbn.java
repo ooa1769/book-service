@@ -10,6 +10,7 @@ import javax.persistence.Embeddable;
 public class Isbn {
 
     private final static int ISBN_10_LENGTH = 10;
+    private final static int ISBN_12_LENGTH = 12;
     private final static int ISBN_13_LENGTH = 13;
 
     public final static String NOT_EXISTS_ISBN_STR = "NOT_EXISTS_ISBN";
@@ -26,7 +27,10 @@ public class Isbn {
     }
 
     private boolean isValidIsbnLength(String isbn) {
-        return isbn.length() == ISBN_13_LENGTH || isbn.length() == ISBN_10_LENGTH || NOT_EXISTS_ISBN_STR.equals(isbn);
+        return isbn.length() == ISBN_13_LENGTH ||
+                isbn.length() == ISBN_12_LENGTH ||
+                isbn.length() == ISBN_10_LENGTH ||
+                NOT_EXISTS_ISBN_STR.equals(isbn);
     }
 
     public static Isbn createIsbnByApi(String isbn) {
