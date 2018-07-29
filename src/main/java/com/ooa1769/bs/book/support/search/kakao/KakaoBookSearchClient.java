@@ -3,6 +3,7 @@ package com.ooa1769.bs.book.support.search.kakao;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ooa1769.bs.book.domain.*;
+import com.ooa1769.bs.book.support.search.ApiUrlQueryBuilder;
 import com.ooa1769.bs.book.support.search.BookSearchClient;
 import com.ooa1769.bs.book.support.search.SearchException;
 import com.ooa1769.bs.web.dto.BookSearchParam;
@@ -25,7 +26,6 @@ import org.springframework.web.client.RestTemplate;
 import java.time.ZonedDateTime;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -45,13 +45,12 @@ public class KakaoBookSearchClient implements BookSearchClient {
 
     @Override
     public Page<Book> search(BookSearchParam bookSearchParam) {
-        Map<String, String> queryParam = bookSearchParam.queryParam();
-
         if (StringUtils.isEmpty(bookSearchParam.getQuery())) {
             return new PageImpl<>(Collections.emptyList());
         }
 
-        Optional<SearchResult> resultOpt = execute(queryParam);
+        String url = ApiUrlQueryBuilder.urlForQueryParams(properties.getUrl(), properties.queryParam(bookSearchParam));
+        Optional<SearchResult> resultOpt = execute(url);
 
         if (resultOpt.isPresent()) {
             SearchResult searchResult = resultOpt.get();
@@ -68,10 +67,9 @@ public class KakaoBookSearchClient implements BookSearchClient {
         return new PageImpl<>(Collections.emptyList());
     }
 
-    private Optional<SearchResult> execute(Map<String, String> queryParam) {
+    private Optional<SearchResult> execute(String url) {
         ResponseEntity<SearchResult> responseEntity = null;
 
-        String url = properties.requestUrl(queryParam);
         try {
             responseEntity = restTemplate.exchange(url,
                     HttpMethod.GET,

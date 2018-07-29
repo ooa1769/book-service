@@ -5,6 +5,7 @@ import com.ooa1769.bs.book.domain.Book;
 import com.ooa1769.bs.book.domain.Isbn;
 import com.ooa1769.bs.book.domain.Price;
 import com.ooa1769.bs.book.domain.SaleStatus;
+import com.ooa1769.bs.book.support.search.ApiUrlQueryBuilder;
 import com.ooa1769.bs.book.support.search.BookSearchClient;
 import com.ooa1769.bs.book.support.search.SearchException;
 import com.ooa1769.bs.web.dto.BookSearchParam;
@@ -44,25 +45,14 @@ public class NaverBookSearchClient implements BookSearchClient {
         this.properties = properties;
     }
 
-    private Map<String, String> queryParam(BookSearchParam bookSearchParam) {
-        Map<String, String> params = new HashMap<>();
-        int start = (bookSearchParam.getPage() - 1) * bookSearchParam.getSize() + 1;
-        params.put("start",  start + "");
-        params.put("display", bookSearchParam.getSize() + "");
-        params.put(bookSearchParam.getTarget(), bookSearchParam.getQuery());
-        params.put("sort", bookSearchParam.getSort());
-        return params;
-    }
-
     @Override
     public Page<Book> search(BookSearchParam bookSearchParam) {
-        Map<String, String> queryParam = queryParam(bookSearchParam);
-
         if (StringUtils.isEmpty(bookSearchParam.getQuery())) {
             return new PageImpl<>(Collections.emptyList());
         }
 
-        Optional<NaverBookSearchClient.SearchResult> resultOpt = execute(queryParam);
+        String url = ApiUrlQueryBuilder.urlForQueryParams(properties.getUrl(), properties.queryParam(bookSearchParam));
+        Optional<NaverBookSearchClient.SearchResult> resultOpt = execute(url);
 
         if (resultOpt.isPresent()) {
             NaverBookSearchClient.SearchResult searchResult = resultOpt.get();
@@ -79,10 +69,9 @@ public class NaverBookSearchClient implements BookSearchClient {
         return new PageImpl<>(Collections.emptyList());
     }
 
-    private Optional<NaverBookSearchClient.SearchResult> execute(Map<String, String> queryParam) {
+    private Optional<NaverBookSearchClient.SearchResult> execute(String url) {
         ResponseEntity<NaverBookSearchClient.SearchResult> responseEntity = null;
 
-        String url = properties.requestUrl(queryParam);
         try {
             responseEntity = restTemplate.exchange(url,
                     HttpMethod.GET,

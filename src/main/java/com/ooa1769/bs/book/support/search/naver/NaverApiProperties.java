@@ -1,12 +1,12 @@
 package com.ooa1769.bs.book.support.search.naver;
 
+import com.ooa1769.bs.web.dto.BookSearchParam;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URI;
+import java.util.HashMap;
 import java.util.Map;
 
 @Getter
@@ -34,11 +34,14 @@ public class NaverApiProperties {
         return KAKAO_AUTHORIZATION_HEADER_CLIENT_SECRET;
     }
 
-    public String requestUrl(Map<String, String> params) {
-        UriComponentsBuilder builder = UriComponentsBuilder.fromUri(URI.create(url));
-        for (Map.Entry<String, String> param : params.entrySet()) {
-            builder.queryParam(param.getKey(), param.getValue());
-        }
-        return builder.build().toUriString();
+    public Map<String, String> queryParam(BookSearchParam bookSearchParam) {
+        Map<String, String> params = new HashMap<>();
+
+        int startPage = (bookSearchParam.getPage() - 1) * bookSearchParam.getSize() + 1;
+        params.put("start",  startPage+ "");
+        params.put("display", bookSearchParam.getSize() + "");
+        params.put("sort", bookSearchParam.getSort());
+        params.put(bookSearchParam.getTarget(), bookSearchParam.getQuery());
+        return params;
     }
 }
