@@ -113,10 +113,14 @@
                 }
 
                 searchForm.attr('action', '/book/' + $('#apiType').val());
+                var prevPage = searchForm.find("[name='page']").val();
+                var prevSize = searchForm.find("[name='size']").val();
                 var prevTarget = searchForm.find("[name='target']").val();
                 var prevQuery = searchForm.find("[name='query']").val();
                 var prevCategory = searchForm.find("[name='category']").val();
                 var prevSort = searchForm.find("[name='sort']").val();
+                searchForm.append('<input type="hidden" name="prevPage" value="' + prevPage + '"/>');
+                searchForm.append('<input type="hidden" name="prevSize" value="' + prevSize + '"/>');
                 searchForm.append('<input type="hidden" name="prevTarget" value="' + prevTarget + '"/>');
                 searchForm.append('<input type="hidden" name="prevQuery" value="' + prevQuery +'"/>');
                 searchForm.append('<input type="hidden" name="prevCategory" value="' + prevCategory + '"/>');
@@ -124,6 +128,8 @@
                 var isbnParam = $('#apiType').val() == 'kakao' ? 'isbn' : 'd_isbn';
                 searchForm.find('[name="target"]').val(isbnParam);
                 searchForm.find('[name="query"]').val(isbn);
+                searchForm.find('[name="page"]').val(1);
+                searchForm.find('[name="size"]').val(1);
                 searchForm.find('[name="category"]').val('ALL');
                 searchForm.submit();
             });

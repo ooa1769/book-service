@@ -25,16 +25,4 @@ public class KakaoApiPropertiesTest {
     public void 인증_헤더_값_검증() {
         assertEquals("KakaoAK 1abc24343adcf43asd6keka42", properties.authorizationHeaderValue());
     }
-
-   /* @Test
-    public void 카카오API_호출할_쿼리문자열_검증() throws Exception {
-        Map<String, String> params = new HashMap<>();
-        params.put("page", "1");
-        params.put("size", "10");
-        params.put("query", "spring");
-        params.put("target", "title");
-        params.put("category", "1");
-        params.put("sort", "title");
-        assertEquals("https://dapi.kakao.com/v2/search/book?size=10&query=spring&page=1&sort=title&category=1&target=title", properties.urlForQueryParams(params));
-    }*/
 }

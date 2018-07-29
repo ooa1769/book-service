@@ -44,8 +44,8 @@
                     </table>
                 </li>
             </ul>
-            <p><a th:href="@{'/search/' + ${apiType.code} (page=${searchOption.page},
-			                size=${searchOption.size},
+            <p><a th:href="@{'/search/' + ${apiType.code} (page=${prevSearchOption.prevPage},
+			                size=${prevSearchOption.prevSize},
 			                query=${prevSearchOption.prevQuery},
 			                target=${prevSearchOption.prevTarget},
 			                category=${prevSearchOption.prevCategory},

@@ -51,7 +51,7 @@ public class NaverBookSearchClient implements BookSearchClient {
             return new PageImpl<>(Collections.emptyList());
         }
 
-        String url = ApiUrlQueryBuilder.urlForQueryParams(properties.getUrl(), properties.queryParam(bookSearchParam));
+        String url = ApiUrlQueryBuilder.urlForQueryParams(properties.baseUrl(bookSearchParam), properties.queryParam(bookSearchParam));
         Optional<NaverBookSearchClient.SearchResult> resultOpt = execute(url);
 
         if (resultOpt.isPresent()) {
@@ -152,6 +152,4 @@ public class NaverBookSearchClient implements BookSearchClient {
             }
         }
     }
-
-
 }
