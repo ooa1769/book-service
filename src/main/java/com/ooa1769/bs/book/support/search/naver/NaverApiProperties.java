@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -48,7 +49,9 @@ public class NaverApiProperties {
         int startPage = (bookSearchParam.getPage() - 1) * bookSearchParam.getSize() + 1;
         params.put("start",  startPage + "");
         params.put("display", bookSearchParam.getSize() + "");
-        params.put("sort", bookSearchParam.getSort());
+        if (!StringUtils.isEmpty(bookSearchParam.getSort())) {
+            params.put("sort", bookSearchParam.getSort());
+        }
 
         if (isAllSearchUrl(bookSearchParam.getTarget())) {
             params.put("query", bookSearchParam.getQuery());

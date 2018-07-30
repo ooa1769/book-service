@@ -1,13 +1,46 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-      layout:decorator="layout">
+      xmlns:sec="http://www.w3.org/1999/xhtml" layout:decorator="layout">
 <head>
-    <title>Home</title>
+    <title>책 검색 서비스</title>
 </head>
 <body>
-<h1 layout:fragment="header">Home</h1>
+<h1 layout:fragment="header">책 검색</h1>
 <div layout:fragment="content" class="container">
+    <div class="panel-body">
+        <select id="apiType" name="apiType" class="span2">
+            <option th:each="type : ${apiTypes}" th:value="${type.code}" th:text="${type.name}"></option>
+        </select>
+        <form class="form-search">
+            <input type="text" id="query" name="query" class="input-medium search-query" />
+        </form>
+        <button class="btn" id="searchBtn">검색</button>
+    </div>
 
+    <form id="searchForm" method="get">
+        <!--<input type='hidden' name='apiType' th:value="${searchOption.apiType.code}" />
+        <input type='hidden' name='page' th:value="${searchOption.page}" />
+        <input type='hidden' name='size' th:value="${searchOption.size}" />
+        <input type='hidden' name='target' th:value="${searchOption.target}"/>
+        <input type='hidden' name='query' th:value="${searchOption.query}"/>-->
+        <input type='hidden' name='target' value="all"/>
+        <input type='hidden' name='query' />
+    </form>
 </div>
 </body>
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+        $(document).ready(function() {
+            var searchForm = $("#searchForm");
+
+            $("#searchBtn").click(function () {
+                searchForm.attr('action', '/search/' + $('#apiType').val());
+
+                var query = $("#query").val();
+                searchForm.find("[name='query']").val(query);
+                searchForm.submit();
+            });
+        });
+    </script>
+</th:block>
 </html>

@@ -40,6 +40,12 @@ public class BookController {
         this.enumMapper = enumMapper;
     }
 
+    @RequestMapping
+    public String home(Model model) {
+        model.addAttribute("apiTypes", ApiType.values());
+        return "home";
+    }
+
     @RequestMapping(value = "/search/{apiType}", method = RequestMethod.GET)
     public String search(@LoginMember Member member,
                          @PathVariable("apiType") ApiType apiType,
