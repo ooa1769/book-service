@@ -8,6 +8,14 @@
 <h1 layout:fragment="header">북마크</h1>
 <div layout:fragment="content" class="container">
     <div class="panel-body">
+        <form class="form-inline">
+
+            <select id="sort" name="sort" class="span2 pull-right">
+                <option th:each="s : ${sorts}" th:value="${s.sort}" th:text="${s.displayName}"
+                        th:selected="${pageable.getSort().toString()} == ${s.sortDirection}"></option>
+            </select>
+            <br/>
+        </form>
         <table class="table table-bordered table-striped table-hover table-condensed">
             <thead>
             <tr>
@@ -43,6 +51,7 @@
     <form id='pagingForm' th:action="@{/bookmark}" method="get">
         <input type='hidden' name='page' th:value="${pageable.getPageNumber() + 1}" />
         <input type='hidden' name='size' th:value="${pageable.getPageSize()}" />
+        <input type='hidden' name='sort' />
     </form>
 </div>
 </body>
@@ -53,7 +62,17 @@
 
             $(".pagination a").click(function(e) {
                 e.preventDefault();
-                pagingForm.find('[name="page"]').val($(this).attr('href'));
+                var page = $(this).attr('href');
+                var sort = $('#sort').val();
+                pagingForm.find('[name="page"]').val(page);
+                pagingForm.find('[name="sort"]').val(sort);
+                pagingForm.submit();
+            });
+
+            $("#sort").change(function (e) {
+                e.preventDefault();
+                var sort = $('#sort').val();
+                pagingForm.find('[name="sort"]').val(sort);
                 pagingForm.submit();
             });
 

@@ -6,18 +6,21 @@ import com.ooa1769.bs.book.domain.SearchHistory;
 import com.ooa1769.bs.book.support.BookService;
 import com.ooa1769.bs.book.support.SearchHistoryService;
 import com.ooa1769.bs.book.support.search.ApiType;
-import com.ooa1769.bs.web.dto.BookSearchParam;
 import com.ooa1769.bs.member.Member;
 import com.ooa1769.bs.support.domain.EnumMapper;
 import com.ooa1769.bs.support.security.LoginMember;
 import com.ooa1769.bs.support.util.Mappings;
+import com.ooa1769.bs.web.dto.BookMarkSort;
+import com.ooa1769.bs.web.dto.BookSearchParam;
 import com.ooa1769.bs.web.dto.PrevBookSearchParam;
+import com.ooa1769.bs.web.dto.SearchHistorySort;
 import com.ooa1769.bs.web.paging.PagingInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.web.SortDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
@@ -70,10 +73,12 @@ public class BookController {
     public String bookmarkList(@LoginMember Member member,
                                @RequestParam(defaultValue = "1") int page,
                                @RequestParam(defaultValue = "10") int size,
+                               @SortDefault(value = {"createDate"}, direction = Sort.Direction.DESC) Sort sort,
                                Model model) {
-        Pageable pageable = new PageRequest(page - 1, size, Sort.Direction.DESC, "createDate");
+        Pageable pageable = new PageRequest(page - 1, size, sort);
         Page<BookMark> pageBookMark = bookService.getBookMarksByMember(member, pageable);
         model.addAttribute("pageable", pageable);
+        model.addAttribute("sorts", BookMarkSort.values());
         model.addAttribute("bookmarks", pageBookMark.getContent());
         model.addAttribute("pagingInfo", new PagingInfo(pageBookMark));
         return "book/bookmark";
@@ -84,10 +89,12 @@ public class BookController {
     public String searchHistory(@LoginMember Member member,
                                 @RequestParam(defaultValue = "1") int page,
                                 @RequestParam(defaultValue = "10") int size,
+                                @SortDefault(value = {"searchDate"}, direction = Sort.Direction.DESC) Sort sort,
                                 Model model) {
-        Pageable pageable = new PageRequest(page - 1, size, Sort.Direction.DESC, "searchDate");
+        Pageable pageable = new PageRequest(page - 1, size, sort);
         Page<SearchHistory> pageSearchHistory = searchHistoryService.getHistoryByMember(member, pageable);
         model.addAttribute("pageable", pageable);
+        model.addAttribute("sorts", SearchHistorySort.values());
         model.addAttribute("histories", pageSearchHistory.getContent());
         model.addAttribute("pagingInfo", new PagingInfo(pageSearchHistory));
         return "book/searchHistory";
