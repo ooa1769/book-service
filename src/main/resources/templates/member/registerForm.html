@@ -8,23 +8,26 @@
 <h1 layout:fragment="header">회원가입</h1>
 <div layout:fragment="content" class="container">
     <div class="container">
-        <form class="form-horizontal" id="userForm" th:action="@{/member/register}" method="post">
+        <form class="form-horizontal" id="userForm" th:object="${memberDto}" th:action="@{/member/register}" method="post">
             <div class="control-group">
                 <label class="control-label" for="email">Email</label>
                 <div class="controls">
-                    <input id="email" type="text" name="email" placeholder="Email" />
+                    <input id="email" type="text" name="email" placeholder="Email" th:field="*{email}"/>
+                    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="alert alert-error">Email Error</span>
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="inputPassword">Password</label>
+                <label class="control-label" for="password">Password</label>
                 <div class="controls">
-                    <input id="inputPassword" type="password" name="password" placeholder="Password" />
+                    <input id="password" type="password" name="password" placeholder="password" th:field="*{password}"/>
+                    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="alert alert-error">password Error</span>
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label" for="name">Name</label>
                 <div class="controls">
-                    <input id="name" type="text" name="name" placeholder="name"/>
+                    <input id="name" type="text" name="name" th:field="*{name}" placeholder="name"/>
+                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="alert alert-error">name Error</span>
                 </div>
             </div>
             <div class="control-group">

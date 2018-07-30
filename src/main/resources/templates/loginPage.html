@@ -8,6 +8,7 @@
 <h1 layout:fragment="header">로그인</h1>
 <div layout:fragment="content" class="container">
     <div class="container">
+        <div th:if="${param.error}" class="alert alert-danger">Invalid email and password.</div>
         <form class="form-horizontal" th:action="@{/doLogin}" method="post">
             <div class="control-group">
                 <label class="control-label" for="username">Email</label>

@@ -32,7 +32,7 @@ public class BookService {
     public Book getBookByIsbn(ApiType apiType, BookSearchParam bookSearchParam) {
         Page<Book> pageBook = searchService.search(apiType, bookSearchParam);
         if (pageBook.getTotalElements() == 0) {
-            throw new BookNotFoundException("해당 책이 존재하지 않습니다.");
+            throw new BookNotFoundException("해당 책의 상세정보가 존재하지 않습니다.");
         }
         return pageBook.getContent().get(0);
     }
