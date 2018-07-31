@@ -13,8 +13,8 @@
         </select>
         <form class="form-search">
             <input type="text" id="query" name="query" class="input-medium search-query" />
+            <button class="btn" id="searchBtn">검색</button>
         </form>
-        <button class="btn" id="searchBtn">검색</button>
     </div>
 
     <form id="searchForm" method="get">
@@ -33,7 +33,8 @@
         $(document).ready(function() {
             var searchForm = $("#searchForm");
 
-            $("#searchBtn").click(function () {
+            $("#searchBtn").click(function (e) {
+                e.preventDefault();
                 searchForm.attr('action', '/search/' + $('#apiType').val());
 
                 var query = $("#query").val();

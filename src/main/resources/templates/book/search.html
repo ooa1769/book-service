@@ -79,7 +79,8 @@
         $(document).ready(function() {
             var searchForm = $("#searchForm");
 
-            $("#searchBtn").click(function () {
+            $("#searchBtn").click(function (e) {
+                e.preventDefault();
                 var target = $("#target").find(":selected").val();
                 var query = $("#query").val();
                 var category = $("#category").find(":selected").val();
@@ -89,7 +90,7 @@
                 searchForm.find("[name='category']").val(category);
                 searchForm.find("[name='sort']").val(sort);
                 searchForm.find("[name='page']").val("1");
-                //searchForm.submit();
+                searchForm.submit();
             });
 
             $("#searchBtn").keypress(function(e) {

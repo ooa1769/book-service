@@ -45,24 +45,39 @@ public class NaverApiProperties {
 
     public Map<String, String> queryParam(BookSearchParam bookSearchParam) {
         Map<String, String> params = new HashMap<>();
-
-        int startPage = (bookSearchParam.getPage() - 1) * bookSearchParam.getSize() + 1;
-        params.put("start",  startPage + "");
-        params.put("display", bookSearchParam.getSize() + "");
-        if (!StringUtils.isEmpty(bookSearchParam.getSort())) {
-            params.put("sort", bookSearchParam.getSort());
-        }
-
-        if (isAllSearchUrl(bookSearchParam.getTarget())) {
-            params.put("query", bookSearchParam.getQuery());
-        } else {
-            params.put(bookSearchParam.getTarget(), bookSearchParam.getQuery());
-        }
-
+        addStartPage(params, bookSearchParam.getPage(), bookSearchParam.getSize());
+        addDisplay(params, bookSearchParam.getSize());
+        addSort(params, bookSearchParam.getSort());
+        addTarget(params, bookSearchParam.getTarget(), bookSearchParam.getQuery());
         return params;
     }
 
+    private void addStartPage(Map<String, String> params, int page, int size) {
+        int startPage = ((page - 1) * size) + 1;
+        params.put("start", startPage + "");
+    }
+
+    private void addDisplay(Map<String, String> params, int size) {
+        params.put("display", size + "");
+    }
+
+    private void addSort(Map<String, String> params, String sort) {
+        if (!StringUtils.isEmpty(sort)) {
+            params.put("sort", sort);
+        } else {
+            params.put("sort", "sim");
+        }
+    }
+
+    private void addTarget(Map<String, String> params, String target, String query) {
+        if (isAllSearchUrl(target)) {
+            params.put("query", query);
+        } else {
+            params.put(target, query);
+        }
+    }
+
     private boolean isAllSearchUrl(String target) {
-        return target.equals("all");
+        return StringUtils.isEmpty(target) || "all".equals(target);
     }
 }
