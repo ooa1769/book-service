@@ -5,7 +5,7 @@
     <title>책 검색 서비스</title>
 </head>
 <body>
-<h1 layout:fragment="header" th:text="${apiType.name} + '책 검색'"></h1>
+<h2 layout:fragment="header" th:text="${apiType.name} + '책 검색'"></h2>
 <div layout:fragment="content" class="container">
     <div class="panel-body">
         <form class="form-inline">
@@ -26,6 +26,7 @@
             <input type='text' id='query' name='query' th:value="${searchOption.query}" class="span4"/>
             <button class='btn' id='searchBtn'>검색</button>
         </form>
+        <div>총 <span style="color:red" th:text="${pagingInfo.getTotalElements()}">0</span>건</div>
         <table class="table table-bordered table-striped table-hover table-condensed">
             <thead>
             <tr>
@@ -51,7 +52,7 @@
                 <td th:if="${book.saleStatus.isSale()}" th:text="${#numbers.formatInteger(book.salePrice, 3, 'COMMA')} + '원'"></td>
                 <td th:unless="${book.saleStatus.isSale()}" th:text="${'가격확인 중'}"></td>
                 <td><a class="btn btn-small bookMarkLink"
-                       th:attr="url=@{'/book/' + ${apiType.code} (page='1',
+                       th:attr="url=@{'/bookmark/' + ${apiType.code} (page='1',
                     size='1',
                     query=${book.isbn},
                     target=${apiType.code == 'kakao'} ? 'isbn' : 'd_isbn',

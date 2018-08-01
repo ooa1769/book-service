@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class LoggingAspect {
 
-    @Pointcut("within(com.ooa1769.bs.web..*) || within(com.ooa1769.bs.service..*)")
+    @Pointcut("within(com.ooa1769.bs.web..*) || within(com.ooa1769.bs.book.support.*)")
     public void loggingPointcut() {
     }
 

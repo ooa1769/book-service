@@ -90,6 +90,16 @@ public class BookController {
         return "book/bookmark";
     }
 
+    @RequestMapping(value = Mappings.BOOKMARK + "/{apiType}", method = RequestMethod.GET)
+    public String bookmarkView(@PathVariable("apiType") ApiType apiType,
+                       @ModelAttribute("searchOption") BookSearchParam bookSearchParam,
+                       @ModelAttribute("prevSearchOption") PrevBookSearchParam prevBookSearchParam,
+                       Model model) {
+        model.addAttribute("book", bookService.getBookByIsbn(apiType, bookSearchParam));
+        model.addAttribute("apiType", apiType);
+        return "book/bookmarkView";
+    }
+
     // ============== SearchHistory ============
     @RequestMapping("/history")
     public String searchHistory(@LoginMember Member member,

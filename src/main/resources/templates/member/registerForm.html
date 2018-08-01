@@ -5,7 +5,7 @@
     <title>회원가입</title>
 </head>
 <body>
-<h1 layout:fragment="header">회원가입</h1>
+<h2 layout:fragment="header">회원가입</h2>
 <div layout:fragment="content" class="container">
     <div class="container">
         <form class="form-horizontal" id="userForm" th:object="${memberDto}" th:action="@{/member/register}" method="post">

@@ -44,13 +44,7 @@
                     </table>
                 </li>
             </ul>
-            <p><a th:href="@{'/search/' + ${apiType.code} (page=${prevSearchOption.prevPage},
-			                size=${prevSearchOption.prevSize},
-			                query=${prevSearchOption.prevQuery},
-			                target=${prevSearchOption.prevTarget},
-			                category=${prevSearchOption.prevCategory},
-			                sort=${prevSearchOption.prevSort}
-			             )}" class="btn btn-small btn-primary pull-right" >목록으로</a>
+            <p><a th:href="@{'/bookmark'}" class="btn btn-small btn-primary pull-right" >목록으로</a>
             </p>
         </div>
     </div>

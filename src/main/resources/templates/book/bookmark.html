@@ -5,7 +5,7 @@
     <title>북마크</title>
 </head>
 <body>
-<h1 layout:fragment="header">북마크</h1>
+<h2 layout:fragment="header">북마크</h2>
 <div layout:fragment="content" class="container">
     <div class="panel-body">
         <form class="form-inline">
@@ -16,11 +16,12 @@
             </select>
             <br/>
         </form>
+        <div>총 <span style="color:red" th:text="${pagingInfo.getTotalElements()}">0</span>건</div>
         <table class="table table-bordered table-striped table-hover table-condensed">
             <thead>
             <tr>
                 <td class="span1">순번</td>
-                <td class="span1">API타입</td>
+                <td class="span1">API 타입</td>
                 <td class="span2">isbn</td>
                 <td class="span5">책제목</td>
                 <td class="span2">날짜</td>

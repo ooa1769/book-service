@@ -40,6 +40,10 @@ public class PagingInfo {
         return elements;
     }
 
+    public int getTotalElements() {
+        return (int) page.getTotalElements();
+    }
+
     private int endPage() {
         int endPage = tempEndPage();
         return endPage > page.getTotalPages() ? page.getTotalPages() : endPage;

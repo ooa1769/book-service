@@ -94,7 +94,7 @@ public class NaverBookSearchClient implements BookSearchClient {
 
     private Book convertBook(NaverBookSearchClient.SearchResult.Item item) {
         return Book.builder()
-                .title(item.getTitle())
+                .title(item.toTitle())
                 .contents(item.getDescription())
                 .url(item.getLink())
                 .isbn(item.toIsbn())
@@ -139,7 +139,12 @@ public class NaverBookSearchClient implements BookSearchClient {
             }
 
             List<String> toAuthors() {
-                return Arrays.asList(author);
+                String authors = replaceTag(author);
+                return Arrays.asList(authors);
+            }
+
+            String toTitle() {
+                return replaceTag(title);
             }
 
             ZonedDateTime toZonedDateTime() {
@@ -149,6 +154,11 @@ public class NaverBookSearchClient implements BookSearchClient {
 
             SaleStatus toSaleStatus() {
                 return ObjectUtils.isEmpty(discount) ? SaleStatus.N : SaleStatus.Y;
+            }
+
+            String replaceTag(String item) {
+                return item.replace("<b>", "")
+                        .replace("</b>", "");
             }
         }
     }
