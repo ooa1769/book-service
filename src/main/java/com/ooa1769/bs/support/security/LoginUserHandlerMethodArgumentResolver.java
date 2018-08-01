@@ -5,6 +5,7 @@ import com.ooa1769.bs.member.support.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -30,12 +31,12 @@ public class LoginUserHandlerMethodArgumentResolver implements HandlerMethodArgu
                                   NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        LoginMember loginUser = parameter.getParameterAnnotation(LoginMember.class);
-        if (loginUser.query()) {
+
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
             Optional<Member> memberOpt = memberRepository.findByEmail(authentication.getName());
             return memberOpt.get();
         }
 
-        return new Member(authentication.getName());
+        return Member.GUEST_MEMBER;
     }
 }

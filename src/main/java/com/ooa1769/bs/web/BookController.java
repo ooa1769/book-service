@@ -40,7 +40,7 @@ public class BookController {
         this.enumMapper = enumMapper;
     }
 
-    @RequestMapping
+    @RequestMapping("/")
     public String home(Model model) {
         model.addAttribute("apiTypes", ApiType.values());
         return "home";
@@ -50,7 +50,7 @@ public class BookController {
     public String search(@LoginMember Member member,
                          @PathVariable("apiType") ApiType apiType,
                          @ModelAttribute("searchOption") BookSearchParam bookSearchParam, Model model) {
-        if (!ObjectUtils.isEmpty(member) && !ObjectUtils.isEmpty(bookSearchParam.getQuery())) {
+        if (!member.isGuest() && !ObjectUtils.isEmpty(bookSearchParam.getQuery())) {
             searchHistoryService.addSearchHistory(member, bookSearchParam.getQuery());
         }
 
