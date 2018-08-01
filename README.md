@@ -93,12 +93,21 @@ mvn spring-boot:run
 ## 구현화면
 - 책 검색 화면 <br>
 ![book_search](./images/book_search.png)
+![book_search](./images/book_search2.png)
+![book_search](./images/book_search3.png)
+![book_search](./images/book_search4.png)
 
 - 책 상세 정보 화면<br>
 ![book_view](./images/book_view.png)
 
 - 북마크 화면<br>
-![book_view](./images/bookmark.png)
+![bookmark](./images/bookmark.png)
 
 - 최근 검색 히스토리 화면<br>
-![book_view](./images/search_history.png)
+![search_history](./images/search_history.png)
+
+- 회원 가입 유효성 검증<br>
+![member_register](./images/member_register.png)
+
+- 로그인 아이디/패스워드 검증<br>
+![member_login](./images/member_login.png)

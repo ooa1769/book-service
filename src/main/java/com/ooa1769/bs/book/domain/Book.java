@@ -58,4 +58,8 @@ public class Book {
     public Integer getSalePrice() {
         return price.getSalePrice();
     }
+
+    public boolean isNullDateTime() {
+        return datetime == null;
+    }
 }

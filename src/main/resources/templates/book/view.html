@@ -39,7 +39,7 @@
                             <td th:unless="${book.saleStatus.isSale()}" th:text="${'가격확인 중'}"></td>                        </tr>
                         <tr>
                             <td>출판일</td>
-                            <td th:text="${#calendars.format(book.datetime, 'YYYY-MM-dd')}" colspan="3"></td>
+                            <td th:text="${book.isNullDateTime() == true} ? '' : ${#calendars.format(book.datetime, 'YYYY-MM-dd')}" colspan="3"></td>
                         </tr>
                     </table>
                 </li>
