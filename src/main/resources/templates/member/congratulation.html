@@ -5,9 +5,9 @@
     <title>Home</title>
 </head>
 <body>
-<h1 layout:fragment="header">회원가입 성공</h1>
+<h2 layout:fragment="header">회원가입 성공</h2>
 <div layout:fragment="content" class="container">
-    회원가입이 정상적으로 처리되었습니다.
+    <div th:text="${name} + '님 회원가입이 완료되었습니다.'"></div>
 </div>
 </body>
 </html>

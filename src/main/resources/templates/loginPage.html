@@ -5,9 +5,10 @@
     <title>회원가입</title>
 </head>
 <body>
-<h1 layout:fragment="header">로그인</h1>
+<h2 layout:fragment="header">로그인</h2>
 <div layout:fragment="content" class="container">
     <div class="container">
+        <div th:if="${param.error}" class="alert alert-danger">Invalid email and password.</div>
         <form class="form-horizontal" th:action="@{/doLogin}" method="post">
             <div class="control-group">
                 <label class="control-label" for="username">Email</label>

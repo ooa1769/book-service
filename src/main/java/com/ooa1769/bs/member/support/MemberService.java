@@ -25,7 +25,7 @@ public class MemberService {
     @Transactional
     public Member register(MemberDto memberDto) {
         if (emailExist(memberDto.getEmail())) {
-            throw new MemberAlreadyExistException("이미 등록된 id입니다. " + memberDto.getEmail());
+            throw new MemberAlreadyExistException(memberDto.getEmail() + "은 이미 등록된 이메일입니다.");
         }
         String encodePassword = passwordEncoder.encode(memberDto.getPassword());
         log.debug("encodePassword = {}", encodePassword);

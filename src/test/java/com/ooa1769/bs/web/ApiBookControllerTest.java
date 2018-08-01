@@ -15,7 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@TestPropertySource(value = {"classpath:kakao.properties"})
+@TestPropertySource(value = {"classpath:kakao.properties", "classpath:naver.properties"})
 @SpringBootTest
 @AutoConfigureMockMvc
 public class ApiBookControllerTest {
@@ -24,12 +24,15 @@ public class ApiBookControllerTest {
     private MockMvc mvc;
 
     @Test
-    @WithUserDetails(value = "ooa1769@naver.com", userDetailsServiceBeanName = "securityUserDetailService")
+    @WithUserDetails(value = "test1@test.com", userDetailsServiceBeanName = "securityUserDetailService")
     public void search() throws Exception {
         mvc.perform(get("/api/books/search")
+                .param("page", "1")
+                .param("size", "10")
                 .param("target", "title")
                 .param("category", "33")
-                .param("query", "스프링부트"))
+                .param("query", "스프링")
+                .param("apiType", "kakao"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }

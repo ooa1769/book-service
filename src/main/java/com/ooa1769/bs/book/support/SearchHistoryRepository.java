@@ -1,6 +1,6 @@
 package com.ooa1769.bs.book.support;
 
-import com.ooa1769.bs.book.SearchHistory;
+import com.ooa1769.bs.book.domain.SearchHistory;
 import com.ooa1769.bs.member.Member;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

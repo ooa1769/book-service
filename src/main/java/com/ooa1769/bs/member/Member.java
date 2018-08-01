@@ -14,6 +14,8 @@ import javax.persistence.*;
 @Convert(converter = BooleanToYNConverter.class, attributeName = "enabled")
 public class Member extends AbstractEntity implements UrlGeneratable {
 
+    public static final Member GUEST_MEMBER = new GuestMember();
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
@@ -54,6 +56,32 @@ public class Member extends AbstractEntity implements UrlGeneratable {
         this.name = name;
         this.password = password;
         this.enabled = enabled;
+    }
+
+    public boolean isGuest() {
+        return false;
+    }
+
+    static class GuestMember extends Member {
+        @Override
+        public boolean isGuest() {
+            return true;
+        }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Member member = (Member) o;
+
+        return email != null ? email.equals(member.email) : member.email == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return email != null ? email.hashCode() : 0;
     }
 
     @Override
