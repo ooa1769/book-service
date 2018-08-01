@@ -3,6 +3,7 @@ package com.ooa1769.bs.web.api;
 import com.ooa1769.bs.book.domain.BookMark;
 import com.ooa1769.bs.book.domain.Isbn;
 import com.ooa1769.bs.book.support.BookService;
+import com.ooa1769.bs.book.support.search.ApiType;
 import com.ooa1769.bs.member.Member;
 import com.ooa1769.bs.support.security.LoginMember;
 import com.ooa1769.bs.support.util.Mappings;
@@ -49,8 +50,8 @@ public class ApiBookMarkController {
     }
 
     @GetMapping("/{isbn}")
-    public ResponseEntity<?> isAddedBookMark(@LoginMember Member member, @PathVariable Isbn isbn) {
-        boolean isAdded = bookService.isAddedBookMarkByMemberAndIsbn(member, isbn);
+    public ResponseEntity<?> isAddedBookMark(@LoginMember Member member, @PathVariable Isbn isbn, ApiType apiType) {
+        boolean isAdded = bookService.isAddedBookMarkByMemberAndIsbnAndApiType(member, isbn, apiType);
         GenericResponse body =  isAdded ? new GenericResponse("exist", "이미 등록된 북마크입니다.") : new GenericResponse("not_exist");
         return new ResponseEntity<>(body, new HttpHeaders(), HttpStatus.OK);
     }

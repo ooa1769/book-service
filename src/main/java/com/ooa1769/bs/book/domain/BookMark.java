@@ -1,5 +1,6 @@
 package com.ooa1769.bs.book.domain;
 
+import com.ooa1769.bs.book.support.search.ApiType;
 import com.ooa1769.bs.member.Member;
 import com.ooa1769.bs.support.domain.UrlGeneratable;
 import com.ooa1769.bs.support.jpa.AbstractEntity;
@@ -23,7 +24,14 @@ public class BookMark extends AbstractEntity implements UrlGeneratable {
     private Isbn isbn;
 
     @Getter
+    @Enumerated(EnumType.STRING)
+    private ApiType apiType;
+
+    @Getter
     private String title;
+
+    @Getter
+    private String url;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
@@ -32,10 +40,12 @@ public class BookMark extends AbstractEntity implements UrlGeneratable {
     public BookMark() {
     }
 
-    public BookMark(Isbn isbn, String title, Member member) {
+    public BookMark(Isbn isbn, String title, ApiType apiType, String url, Member member) {
         this.isbn = isbn;
         this.title = title;
         this.member = member;
+        this.apiType = apiType;
+        this.url = url;
     }
 
     @Override

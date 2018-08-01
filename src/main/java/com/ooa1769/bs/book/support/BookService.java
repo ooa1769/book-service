@@ -62,4 +62,9 @@ public class BookService {
     public boolean isAddedBookMarkByMemberAndIsbn(Member member, Isbn isbn) {
         return bookMarkRepository.findByMemberAndIsbn(member, isbn).isPresent();
     }
+
+    @Transactional(readOnly = true)
+    public boolean isAddedBookMarkByMemberAndIsbnAndApiType(Member member, Isbn isbn, ApiType apiType) {
+        return bookMarkRepository.findByMemberAndIsbnAndApiType(member, isbn, apiType).isPresent();
+    }
 }

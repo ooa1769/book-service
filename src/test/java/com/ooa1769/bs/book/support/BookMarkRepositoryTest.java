@@ -2,6 +2,7 @@ package com.ooa1769.bs.book.support;
 
 import com.ooa1769.bs.book.domain.BookMark;
 import com.ooa1769.bs.book.domain.Isbn;
+import com.ooa1769.bs.book.support.search.ApiType;
 import com.ooa1769.bs.member.Member;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,8 +40,8 @@ public class BookMarkRepositoryTest {
         entityManager.persist(member);
         entityManager.flush();
 
-        BookMark bookMark1 = new BookMark(new Isbn("9791188621279"), "스프링 부트로 배우는 자바 웹 개발", member);
-        BookMark bookMark2 = new BookMark(new Isbn("9788960777330"), "자바 ORM 표준 JPA 프로그래밍", member);
+        BookMark bookMark1 = new BookMark(new Isbn("9791188621279"), "스프링 부트로 배우는 자바 웹 개발", ApiType.KAKAO, "url1", member);
+        BookMark bookMark2 = new BookMark(new Isbn("9788960777330"), "자바 ORM 표준 JPA 프로그래밍", ApiType.KAKAO, "url2", member);
 
         bookMarkRepository.save(bookMark1);
         bookMarkRepository.save(bookMark2);

@@ -31,4 +31,9 @@ public enum ApiType {
                 return KAKAO;
         }
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

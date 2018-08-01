@@ -20,6 +20,7 @@
             <thead>
             <tr>
                 <td class="span1">순번</td>
+                <td class="span1">API타입</td>
                 <td class="span2">isbn</td>
                 <td class="span5">책제목</td>
                 <td class="span2">날짜</td>
@@ -28,12 +29,13 @@
             </thead>
             <tbody>
             <tr th:if="${bookmarks.empty}">
-                <td colspan="5">저장한 북마크가 없습니다.</td>
+                <td colspan="6">저장한 북마크가 없습니다.</td>
             </tr>
             <tr th:each="bookmark, index : ${bookmarks}">
                 <td th:text="${index.index + 1 + (pageable.getPageNumber() * pageable.getPageSize())}"></td>
+                <td th:text="${bookmark.apiType}"></td>
                 <td th:text="${bookmark.isbn}"></td>
-                <td th:text="${bookmark.title}"></td>
+                <td><a class="bookLink" th:attr="url=${bookmark.url}" href="#" th:inline="text">[[${bookmark.title}]]</a></td>
                 <td th:text="${bookmark.formattedCreateDate}"></td>
                 <td><a class="btn btn-small bookMarkLink" th:attr="id=${bookmark.id}"><i class="icon-remove-circle"></i> 삭제</a></td>
             </tr>
@@ -93,6 +95,12 @@
                         console.log(xhr);
                     }
                 });
+            });
+
+            $(".bookLink").click(function(e){
+                e.preventDefault();
+                var url = $(this).attr("url");
+                location.href = url;
             });
         });
     </script>
