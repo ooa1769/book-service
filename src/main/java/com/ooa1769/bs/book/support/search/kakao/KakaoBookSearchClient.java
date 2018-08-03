@@ -77,7 +77,7 @@ public class KakaoBookSearchClient implements BookSearchClient {
                     SearchResult.class);
         } catch (RestClientException e) {
             log.error("RestClientException {}", e.getMessage());
-            throw new SearchException("네이버 책 검색 API 호출 중 오류가 발생하였습니다.");
+            throw new SearchException("카카오 책 검색 API 호출 중 오류가 발생하였습니다.");
         }
 
         return Optional.ofNullable(responseEntity.getBody());
@@ -101,7 +101,7 @@ public class KakaoBookSearchClient implements BookSearchClient {
                 .translators(document.getTranslators())
                 .price(document.toPrice())
                 .category(document.getCategory())
-                .thumbnail(document.getThumbnail())
+                .thumbnail(document.toThumbnail())
                 .barcode(document.toBarcode())
                 .saleStatus(document.toSaleStatus())
                 .build();
@@ -152,6 +152,10 @@ public class KakaoBookSearchClient implements BookSearchClient {
 
             SaleStatus toSaleStatus() {
                 return "Y".equals(saleYn) ? SaleStatus.Y : SaleStatus.N;
+            }
+
+            String toThumbnail() {
+                return StringUtils.isEmpty(thumbnail) ? "http://i1.daumcdn.net/img-contents/book/2010/72x100_v2.gif" : thumbnail;
             }
         }
 
